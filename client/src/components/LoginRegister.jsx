@@ -20,9 +20,7 @@ const LoginRegister = () => {
         setError('');
         navigate('/order');
       } else {
-       // setError('Invalid credentials. Please try again.');
-       setError('');
-        navigate('/order');
+       setError('Invalid credentials. Please try again.');
       }
     } catch (err) {
       console.error(err);

@@ -13,8 +13,22 @@ export const KickplateProvider = ({ children }) => {
     shedLengthUnit: 'cm',
   });
 
+  // ✅ Add this block
+  const [stepStatus, setStepStatus] = useState({
+    step1: false,
+    step2: false,
+    step3: false,
+  });
+
   return (
-    <KickplateContext.Provider value={{ kickplateData, setKickplateData }}>
+    <KickplateContext.Provider
+      value={{
+        kickplateData,
+        setKickplateData,
+        stepStatus,
+        setStepStatus,
+      }}
+    >
       {children}
     </KickplateContext.Provider>
   );
