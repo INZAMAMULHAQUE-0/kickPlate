@@ -59,14 +59,13 @@ const Step4_FinalSizes = () => {
   };
 
   const handlePreview = () => {
-    // Final save in context already done via handleChange
-    navigate('/order/summary'); // Change to your actual final step path
+    navigate('/order/step5'); 
   };
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center px-6 py-10 text-[#5c4033]">
-      <h1 className="text-3xl font-bold text-purple-800 mb-10 border border-purple-500 px-6 py-3 text-center">
-        <span className="text-blue-600">200 mm Kick-Plate –</span> Final Sizes
+      <h1 className="text-3xl font-bold text-brown-800 mb-10 border border-black-500 px-6 py-3 text-center">
+        <span className="text-blue-600"></span> Final Sizes
       </h1>
 
       {/* Preview Box with Arrows */}
