@@ -52,7 +52,7 @@ const Step3_ShedLength = () => {
         onClick={handleNext}
         className="px-6 py-2 bg-[#8b4513] text-white rounded shadow hover:bg-[#7a3e00]"
       >
-        Finish
+        Next
       </button>
     </div>
   );

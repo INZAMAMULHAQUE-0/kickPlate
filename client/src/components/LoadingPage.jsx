@@ -28,7 +28,7 @@ const LandingPage = () => {
       {/* Main Section */}
       <main className="flex flex-col items-center justify-center flex-1 px-6 py-12 text-center">
         <h1 className="text-4xl font-bold text-[#5c4033] mb-4">
-          Welcome to Custom Alum Fab Factory
+          Welcome to Custom Alum Fab Factory, Dubai
         </h1>
 
         <p className="text-[#7c6a55] mb-6 max-w-xl">
