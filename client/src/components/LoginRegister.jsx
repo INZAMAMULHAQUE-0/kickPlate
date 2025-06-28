@@ -7,19 +7,29 @@ const LoginRegister = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleEnter = () => {
-    if (username.trim().length < 3 || password.trim().length < 3) {
-      setError('Username and Password must be at least 3 characters.');
-      return;
+  const handleEnter = async () => {
+    try {
+      const res = await fetch('/User.json');
+      const users = await res.json();
+
+      const match = users.find(
+        (user) => user.username === username && user.password === password
+      );
+
+      if (match) {
+        setError('');
+        navigate('/order');
+      } else {
+        setError('Invalid credentials. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Failed to validate. Try again later.');
     }
-    // Proceed to order page or login logic
-    navigate('/order');
   };
 
-  // WhatsApp phone number (with country code, no + symbol)
-  const whatsappNumber = '+919381581410'; 
+  const whatsappNumber = '919381581410';
   const whatsappMessage = `Hi, I'd like to register.`;
-
   const handleWhatsApp = () => {
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(url, '_blank');
