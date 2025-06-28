@@ -11,6 +11,8 @@ export const KickplateProvider = ({ children }) => {
     cutLengthUnit: 'cm',
     shedLength: '',
     shedLengthUnit: 'cm',
+    trimLength: 3,    
+  supportLength: 3 
   });
 
   // ✅ Add this block

@@ -22,7 +22,7 @@ const Step2_CutLength = () => {
     navigate('/order/step3');
   };
 
-  // Dynamic arrow height (max capped to match preview box height = 128px)
+  // Dynamic arrow height (max capped to preview box height = 128px)
   const getArrowHeight = () => {
     if (!isValidHeight) return 40;
     const scale = 2.5;
@@ -41,14 +41,14 @@ const Step2_CutLength = () => {
 
       {/* Preview Area */}
       <div className="relative flex items-center justify-center mb-10">
-        {/* Left side: Label and animated arrow */}
-        <div className="flex flex-col items-center mr-4">
-          {/* Label */}
-          <div className="mb-1 text-sm text-[#5c4033] font-semibold">
+        {/* Left side: label + animated arrow side by side */}
+        <div className="flex items-center mr-4">
+          {/* Label on left of arrow */}
+          <div className="text-[#5c4033] font-semibold text-sm mr-2 w-16 text-right">
             {isValidHeight ? `${kickplateData.cutLength} ${kickplateData.cutLengthUnit}` : 'Height'}
           </div>
 
-          {/* Animated Arrow */}
+          {/* Animated vertical arrow */}
           <div
             className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
             style={{ height: `${dynamicArrowHeight}px` }}
@@ -59,7 +59,7 @@ const Step2_CutLength = () => {
           </div>
         </div>
 
-        {/* Yellow preview box (fixed size) */}
+        {/* Preview Box */}
         <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center">
           <span className="text-gray-400 italic text-lg">Preview Box</span>
         </div>

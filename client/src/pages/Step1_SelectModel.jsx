@@ -79,8 +79,8 @@ const Step1_SelectModel = () => {
           disabled
           className="p-2 rounded bg-gray-100 border border-gray-300 cursor-not-allowed"
         >
-          <option value="cm">cm</option>
           <option value="mm">mm</option>
+          <option value="cm">cm</option>
           <option value="inch">inch</option>
         </select>
       </div>
