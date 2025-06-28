@@ -40,10 +40,10 @@ const LandingPage = () => {
         </div>
 
         <button
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/order')}
           className="px-6 py-3 bg-[#8b4513] text-white rounded-lg shadow hover:bg-[#7a3e00] transition"
         >
-          Select Product &gt;
+          Select Product ;
         </button>
       </main>
     </div>
