@@ -6,10 +6,13 @@ const Step2_CutLength = () => {
   const navigate = useNavigate();
   const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
 
-  // Ensure default unit is 'mm' on first load
   useEffect(() => {
-    if (!kickplateData.cutLengthUnit) {
-      setKickplateData({ ...kickplateData, cutLengthUnit: 'mm' });
+    if (!kickplateData.cutLength || !kickplateData.cutLengthUnit) {
+      setKickplateData({
+        ...kickplateData,
+        cutLength: '200',
+        cutLengthUnit: 'mm',
+      });
     }
   }, []);
 
@@ -22,7 +25,6 @@ const Step2_CutLength = () => {
     navigate('/order/step3');
   };
 
-  // Dynamic arrow height (max capped to preview box height = 128px)
   const getArrowHeight = () => {
     if (!isValidHeight) return 40;
     const scale = 2.5;
@@ -36,19 +38,17 @@ const Step2_CutLength = () => {
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-6">
       <h1 className="text-2xl font-bold text-[#5c4033] mb-6 text-center">
-        <span className="text-blue-700"></span> Cut Length
+        Cut Length
       </h1>
 
       {/* Preview Area */}
       <div className="relative flex items-center justify-center mb-10">
-        {/* Left side: label + animated arrow side by side */}
+        {/* Left label + arrow */}
         <div className="flex items-center mr-4">
-          {/* Label on left of arrow */}
           <div className="text-[#5c4033] font-semibold text-sm mr-2 w-16 text-right">
             {isValidHeight ? `${kickplateData.cutLength} ${kickplateData.cutLengthUnit}` : 'Height'}
           </div>
 
-          {/* Animated vertical arrow */}
           <div
             className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
             style={{ height: `${dynamicArrowHeight}px` }}
@@ -65,24 +65,18 @@ const Step2_CutLength = () => {
         </div>
       </div>
 
-      {/* Input Fields */}
+      {/* Disabled Inputs */}
       <div className="flex gap-2 mb-4">
         <input
           type="number"
-          min="0.01"
-          placeholder="Enter Height"
           value={kickplateData.cutLength}
-          onChange={(e) =>
-            setKickplateData({ ...kickplateData, cutLength: e.target.value })
-          }
-          className="p-2 rounded bg-white border border-gray-300 text-gray-700"
+          disabled
+          className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700 cursor-not-allowed"
         />
         <select
           value={kickplateData.cutLengthUnit}
-          onChange={(e) =>
-            setKickplateData({ ...kickplateData, cutLengthUnit: e.target.value })
-          }
-          className="p-2 rounded bg-white border border-gray-300"
+          disabled
+          className="p-2 rounded bg-gray-100 border border-gray-300 cursor-not-allowed"
         >
           <option value="mm">mm</option>
           <option value="cm">cm</option>
@@ -90,7 +84,6 @@ const Step2_CutLength = () => {
         </select>
       </div>
 
-      {/* Next Button */}
       <button
         onClick={handleNext}
         disabled={!isValidHeight}
