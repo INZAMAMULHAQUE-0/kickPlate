@@ -6,11 +6,35 @@ const Step2_CutLength = () => {
   const navigate = useNavigate();
   const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
 
+  // Convert any unit to millimeters
+  const convertToMM = (value, unit) => {
+    const val = parseFloat(value);
+    if (isNaN(val)) return 0;
+
+    switch (unit) {
+      case 'cm':
+        return val * 10;
+      case 'meter':
+        return val * 1000;
+      default:
+        return val; // already in mm
+    }
+  };
+
+  // Initialize default values
   useEffect(() => {
     if (!kickplateData.cutLength || !kickplateData.cutLengthUnit) {
       setKickplateData({
         ...kickplateData,
         cutLength: '200',
+        cutLengthUnit: 'mm',
+      });
+    } else {
+      // Convert existing value to mm if not already
+      const mmValue = convertToMM(kickplateData.cutLength, kickplateData.cutLengthUnit);
+      setKickplateData({
+        ...kickplateData,
+        cutLength: mmValue.toString(),
         cutLengthUnit: 'mm',
       });
     }
@@ -46,7 +70,7 @@ const Step2_CutLength = () => {
         {/* Left label + arrow */}
         <div className="flex items-center mr-4">
           <div className="text-[#5c4033] font-semibold text-sm mr-2 w-16 text-right">
-            {isValidHeight ? `${kickplateData.cutLength} ${kickplateData.cutLengthUnit}` : 'Cut Length'}
+            {isValidHeight ? `${cutLengthValue} mm` : 'Cut Length'}
           </div>
 
           <div
@@ -69,18 +93,16 @@ const Step2_CutLength = () => {
       <div className="flex gap-2 mb-4">
         <input
           type="number"
-          value={kickplateData.cutLength}
+          value={cutLengthValue}
           disabled
           className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700 cursor-not-allowed"
         />
         <select
-          value={kickplateData.cutLengthUnit}
+          value="mm"
           disabled
           className="p-2 rounded bg-gray-100 border border-gray-300 cursor-not-allowed"
         >
           <option value="mm">mm</option>
-          <option value="cm">cm</option>
-          <option value="meter">meter</option>
         </select>
       </div>
 

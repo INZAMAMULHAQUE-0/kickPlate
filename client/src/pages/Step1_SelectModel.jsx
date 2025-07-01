@@ -9,8 +9,6 @@ const Step1_SelectModel = () => {
   useEffect(() => {
     setKickplateData({
       ...kickplateData,
-      width: '200',
-      widthUnit: 'mm',
       model: 'closed joint',
     });
   }, []);
@@ -42,7 +40,7 @@ const Step1_SelectModel = () => {
         className="w-72 p-2 rounded bg-gray-100 border border-gray-300 mb-6 cursor-not-allowed"
       >
         <option value="closed joint">closed joint</option>
-        <option value="open joint" disabled>grove joint</option>
+        <option value="grove joint" disabled>grove joint</option>
       </select>
 
       {/* Next Button */}

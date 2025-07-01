@@ -11,11 +11,11 @@ export const KickplateProvider = ({ children }) => {
     cutLengthUnit: 'cm',
     shedLength: '',
     shedLengthUnit: 'cm',
-    trimLength: 3,    
-  supportLength: 3 
+    trimLengthPieces: '',    
+  supportLengthPieces: '',
+  cutLenghtPieces:''
   });
 
-  // ✅ Add this block
   const [stepStatus, setStepStatus] = useState({
     step1: false,
     step2: false,

@@ -6,13 +6,32 @@ const Step3_ShedLength = () => {
   const navigate = useNavigate();
   const { kickplateData, setKickplateData } = useKickplate();
 
+  // Convert to mm if unit was previously stored as something else
+  const convertToMM = (value, unit) => {
+    const val = parseFloat(value);
+    if (isNaN(val)) return 0;
+    switch (unit) {
+      case 'cm':
+        return val * 10;
+      case 'meter':
+        return val * 1000;
+      default:
+        return val;
+    }
+  };
+
   useEffect(() => {
-    if (!kickplateData.shedLengthUnit) {
-      setKickplateData({ ...kickplateData, shedLengthUnit: 'mm' });
+    // If not mm, convert and store as mm
+    if (kickplateData.shedLength && kickplateData.shedLengthUnit && kickplateData.shedLengthUnit !== 'mm') {
+      const converted = convertToMM(kickplateData.shedLength, kickplateData.shedLengthUnit);
+      setKickplateData({
+        ...kickplateData,
+        shedLength: converted.toString(),
+        shedLengthUnit: 'mm',
+      });
     }
   }, []);
 
-  const cutLengthValue = parseFloat(kickplateData.cutLength) || 0;
   const shedLengthValue = parseFloat(kickplateData.shedLength) || 0;
   const isValidLength = shedLengthValue > 0;
 
@@ -39,12 +58,11 @@ const Step3_ShedLength = () => {
 
       {/* Preview Section */}
       <div className="relative flex flex-col items-center justify-center mb-16">
-        {/* Top: preview row with vertical arrow and box */}
         <div className="flex items-center">
           {/* Vertical Arrow (cut length) */}
           <div className="flex items-center mr-6">
             <div className="text-sm font-semibold text-right mr-2 w-16 text-[#5c4033]">
-              {cutLengthValue} {kickplateData.cutLengthUnit}
+              {kickplateData.cutLength} mm
             </div>
             <div
               className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
@@ -62,25 +80,24 @@ const Step3_ShedLength = () => {
           </div>
         </div>
 
-        {/* Horizontal Arrow for Shed Length */}
-<div className="absolute left-90 top-full -translate-x-1/2 mt-4 flex flex-col items-center">
-  <div
-    className="flex items-center transition-all duration-300 ease-in-out"
-    style={{ width: `${dynamicArrowWidth}px`, maxWidth: '500px' }}
-  >
-    <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[-135deg]" />
-    <div className="h-0.5 bg-gray-600 flex-grow mx-1 min-w-[30px]" />
-    <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[45deg]" />
-  </div>
-  <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
-    {isValidLength ? `${kickplateData.shedLength} ${kickplateData.shedLengthUnit}` : 'Enter Length'}
-  </div>
-</div>
-
+        {/* Horizontal Arrow */}
+        <div className="absolute left-90 -translate-x-1/2 top-full mt-4 flex flex-col items-center">
+          <div
+            className="flex items-center transition-all duration-300 ease-in-out"
+            style={{ width: `${dynamicArrowWidth}px`, maxWidth: '500px' }}
+          >
+            <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[-135deg]" />
+            <div className="h-0.5 bg-gray-600 flex-grow mx-1 min-w-[30px]" />
+            <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[45deg]" />
+          </div>
+          <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
+            {isValidLength ? `${kickplateData.shedLength} mm` : 'Enter Length'}
+          </div>
+        </div>
       </div>
 
-      {/* Input Fields */}
-      <div className="mt-4 flex flex-col sm:flex-row items-center gap-3 mb-8">
+      {/* Input Field */}
+      <div className="mt-4 flex items-center gap-3 mb-8">
         <input
           type="number"
           min="0.01"
@@ -92,15 +109,11 @@ const Step3_ShedLength = () => {
           className="p-2 w-48 rounded bg-white border border-gray-300 text-gray-700 shadow-sm"
         />
         <select
-          value={kickplateData.shedLengthUnit}
-          onChange={(e) =>
-            setKickplateData({ ...kickplateData, shedLengthUnit: e.target.value })
-          }
-          className="p-2 w-32 rounded bg-white border border-gray-300 shadow-sm"
+          value="mm"
+          disabled
+          className="p-2 w-32 rounded bg-gray-100 border border-gray-300 text-gray-600 cursor-not-allowed"
         >
           <option value="mm">mm</option>
-          <option value="cm">cm</option>
-          <option value="meter">meter</option>
         </select>
       </div>
 
