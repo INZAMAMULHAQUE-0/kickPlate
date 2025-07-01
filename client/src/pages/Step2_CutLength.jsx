@@ -46,7 +46,7 @@ const Step2_CutLength = () => {
         {/* Left label + arrow */}
         <div className="flex items-center mr-4">
           <div className="text-[#5c4033] font-semibold text-sm mr-2 w-16 text-right">
-            {isValidHeight ? `${kickplateData.cutLength} ${kickplateData.cutLengthUnit}` : 'Height'}
+            {isValidHeight ? `${kickplateData.cutLength} ${kickplateData.cutLengthUnit}` : 'Cut Length'}
           </div>
 
           <div

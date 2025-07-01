@@ -12,14 +12,15 @@ const Step3_ShedLength = () => {
     }
   }, []);
 
-  const shedLengthValue = parseFloat(kickplateData.shedLength);
-  const isValidLength = !isNaN(shedLengthValue) && shedLengthValue > 0;
+  const cutLengthValue = parseFloat(kickplateData.cutLength) || 0;
+  const shedLengthValue = parseFloat(kickplateData.shedLength) || 0;
+  const isValidLength = shedLengthValue > 0;
 
   const getArrowWidth = () => {
-    if (!isValidLength) return 40;
+    if (!isValidLength) return 60;
     const scale = 2;
-    const min = 40;
-    const max = 460;
+    const min = 60;
+    const max = 500;
     return Math.min(Math.max(shedLengthValue * scale, min), max);
   };
 
@@ -27,44 +28,59 @@ const Step3_ShedLength = () => {
 
   const handleNext = () => {
     if (!isValidLength) return;
-    console.log('Final Config:', kickplateData);
     navigate('/order/step4');
   };
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-6">
       <h1 className="text-2xl font-bold text-[#5c4033] mb-6 text-center">
-        <span className="text-blue-700"></span>Length of Shed
+        Length of Shed
       </h1>
 
-      {/* Preview Area */}
-      <div className="relative mb-12">
-        {/* Yellow Preview Box */}
-        <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center shadow">
-          <span className="text-gray-400 italic text-lg">Preview Box</span>
+      {/* Preview Section */}
+      <div className="relative flex flex-col items-center justify-center mb-16">
+        {/* Top: preview row with vertical arrow and box */}
+        <div className="flex items-center">
+          {/* Vertical Arrow (cut length) */}
+          <div className="flex items-center mr-6">
+            <div className="text-sm font-semibold text-right mr-2 w-16 text-[#5c4033]">
+              {cutLengthValue} {kickplateData.cutLengthUnit}
+            </div>
+            <div
+              className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
+              style={{ height: '128px' }}
+            >
+              <div className="w-3 h-3 border-r-2 border-b-2 border-gray-600 rotate-[-135deg]" />
+              <div className="h-full w-0.5 bg-gray-600" />
+              <div className="w-3 h-3 border-r-2 border-b-2 border-gray-600 rotate-[45deg]" />
+            </div>
+          </div>
+
+          {/* Preview Box */}
+          <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center shadow">
+            <span className="text-gray-400 italic text-lg">Preview Box</span>
+          </div>
         </div>
 
-        {/* Animated Arrow + Value Label */}
-        <div className="absolute left-1/2 top-full -translate-x-1/2 mt-4 flex flex-col items-center">
-          <div
-            className="flex items-center justify-between border-t-2 border-b-2 border-gray-600 px-2 transition-all duration-300 ease-in-out"
-            style={{ width: `${dynamicArrowWidth}px` }}
-          >
-            <span className="text-gray-600">←</span>
-            <div className="h-0.5 bg-gray-600 flex-grow mx-1" />
-            <span className="text-gray-600">→</span>
-          </div>
-          <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
-            {isValidLength ? `${kickplateData.shedLength} ${kickplateData.shedLengthUnit}` : 'Enter Length'}
-          </div>
-        </div>
+        {/* Horizontal Arrow for Shed Length */}
+<div className="absolute left-90 top-full -translate-x-1/2 mt-4 flex flex-col items-center">
+  <div
+    className="flex items-center transition-all duration-300 ease-in-out"
+    style={{ width: `${dynamicArrowWidth}px`, maxWidth: '500px' }}
+  >
+    <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[-135deg]" />
+    <div className="h-0.5 bg-gray-600 flex-grow mx-1 min-w-[30px]" />
+    <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[45deg]" />
+  </div>
+  <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
+    {isValidLength ? `${kickplateData.shedLength} ${kickplateData.shedLengthUnit}` : 'Enter Length'}
+  </div>
+</div>
+
       </div>
 
-      {/* Optional Divider */}
-      {/* <hr className="w-full max-w-md border-t border-gray-300 my-6" /> */}
-
-      {/* Input Fields with extra spacing */}
-      <div className="mt-10 flex flex-col sm:flex-row items-center gap-3 mb-8">
+      {/* Input Fields */}
+      <div className="mt-4 flex flex-col sm:flex-row items-center gap-3 mb-8">
         <input
           type="number"
           min="0.01"
