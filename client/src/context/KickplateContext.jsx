@@ -11,8 +11,7 @@ export const KickplateProvider = ({ children }) => {
     shedLengthUnit: 'mm',
     trimLengthPieces: '',
     supportLengthPieces: '',
-    cutLengthPieces: '',
-    selectedColour: null
+    cutLengthPieces: ''
   });
 
   const [stepStatus, setStepStatus] = useState({
@@ -24,15 +23,13 @@ export const KickplateProvider = ({ children }) => {
     step6: false
   });
 
-  // 🧠 All completed sets of configurations
   const [allSets, setAllSets] = useState([]);
 
-  // ➕ Add current set to allSets & reset for new input
+  const [selectedColour, setSelectedColour] = useState(null);
+
   const addNewSet = () => {
-    // Store current filled set
     setAllSets(prev => [...prev, kickplateData]);
 
-    // Reset to start fresh
     setKickplateData({
       model: 'default',
       cutLength: '200',
@@ -41,11 +38,9 @@ export const KickplateProvider = ({ children }) => {
       shedLengthUnit: 'mm',
       trimLengthPieces: '',
       supportLengthPieces: '',
-      cutLengthPieces: '',
-      selectedColour: null
+      cutLengthPieces: ''
     });
 
-    // Reset step status too
     setStepStatus({
       step1: false,
       step2: false,
@@ -55,7 +50,7 @@ export const KickplateProvider = ({ children }) => {
       step6: false
     });
 
-    console.log('Added to allSets:', [...allSets, kickplateData]);
+    console.log('New set added:', kickplateData);
   };
 
   return (
@@ -67,7 +62,9 @@ export const KickplateProvider = ({ children }) => {
         setStepStatus,
         allSets,
         setAllSets,
-        addNewSet
+        addNewSet,
+        selectedColour,
+        setSelectedColour
       }}
     >
       {children}

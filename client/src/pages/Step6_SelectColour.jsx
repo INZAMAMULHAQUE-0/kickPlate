@@ -4,47 +4,49 @@ import { useNavigate } from 'react-router-dom';
 
 const Step6_SelectColour = () => {
   const navigate = useNavigate();
-  const { kickplateData, setKickplateData } = useKickplate();
+
+  const {
+    kickplateData,
+    setKickplateData,
+    allSets = [],
+    selectedColour,
+    setSelectedColour
+  } = useKickplate();
 
   const colorsData = [
-    { thickness: '0.6 mm', leadTime: '2-3 Days', price: 'Dhs 55/sm', available: true, color: 'bg-blue-600' },
-    { thickness: '0.7 mm', leadTime: '2-3 Days', price: 'Dhs 75/sm', available: true, color: 'bg-lime-500' },
-    { thickness: '0.6 mm', leadTime: '2-3 Days', price: 'Dhs 55/sm', available: false, color: 'bg-purple-200' },
-    { thickness: '1.2 mm', leadTime: '2-15 Days', price: 'Dhs 55/sm', available: true, color: 'bg-blue-600' },
-    { thickness: '2 mm', leadTime: '2-15 Days', price: 'Dhs 95/sm', available: true, color: 'bg-lime-500' },
-    { thickness: '3 mm', leadTime: '2-15 Days', price: 'Dhs 65/sm', available: true, color: 'bg-purple-600' },
-    { thickness: '2.5 mm', leadTime: '7-9 weeks', price: 'Dhs 65/sm', available: true, color: 'bg-blue-600' },
-    { thickness: '3.5 mm', leadTime: '7-9 weeks', price: 'Dhs 55/sm', available: false, color: 'bg-lime-100' },
-    { thickness: '1.5 mm', leadTime: '7-9 weeks', price: 'Dhs 55/sm', available: true, color: 'bg-purple-600' }
+    { thickness: '0.6 mm', leadTime: '2-3 Days', price: '55', available: true, color: 'bg-blue-600' },
+    { thickness: '0.7 mm', leadTime: '2-3 Days', price: '75', available: true, color: 'bg-lime-500' },
+    { thickness: '0.6 mm', leadTime: '2-3 Days', price: '55', available: false, color: 'bg-purple-200' },
+    { thickness: '1.2 mm', leadTime: '2-15 Days', price: '55', available: true, color: 'bg-blue-600' },
+    { thickness: '2 mm', leadTime: '2-15 Days', price: '95', available: true, color: 'bg-lime-500' },
+    { thickness: '3 mm', leadTime: '2-15 Days', price: '65', available: true, color: 'bg-purple-600' },
+    { thickness: '2.5 mm', leadTime: '7-9 weeks', price: '65', available: true, color: 'bg-blue-600' },
+    { thickness: '3.5 mm', leadTime: '7-9 weeks', price: '55', available: false, color: 'bg-lime-100' },
+    { thickness: '1.5 mm', leadTime: '7-9 weeks', price: '55', available: true, color: 'bg-purple-600' }
   ];
 
   const handleSelect = (option) => {
     if (option.available) {
-      setKickplateData(prev => ({
-        ...prev,
-        selectedColour: option
-      }));
+      setSelectedColour(option);
     }
   };
 
   const handlePreview = () => {
-    if (kickplateData.selectedColour) {
-      setKickplateData(prev => ({
-        ...prev,
-        selectedColour: { ...kickplateData.selectedColour }
-      }));
-      console.log('Kickplate Data:', kickplateData);
+    if (selectedColour) {
+      console.log('Selected Colour:', selectedColour);
       navigate('/order/step7');
     }
   };
 
   const {
+    cutLength,
+    cutLengthUnit,
     cutLengthPieces,
     trimLengthPieces,
-    supportLengthPieces,
-    allSets = []
+    supportLengthPieces
   } = kickplateData;
 
+  // Totals (current + saved sets)
   const totalCut = allSets.reduce((sum, set) => sum + Number(set.cutLengthPieces || 0), 0) + Number(cutLengthPieces || 0);
   const totalTrim = allSets.reduce((sum, set) => sum + Number(set.trimLengthPieces || 0), 0) + Number(trimLengthPieces || 0);
   const totalSupport = allSets.reduce((sum, set) => sum + Number(set.supportLengthPieces || 0), 0) + Number(supportLengthPieces || 0);
@@ -67,14 +69,17 @@ const Step6_SelectColour = () => {
         </div>
       </div>
 
+      {/* Title */}
       <h2 className="text-3xl font-bold text-purple-800 mb-10 text-center border-b pb-2">
-        <span className="text-blue-600"></span>SELECT COLOUR
+        <span className="text-blue-600">Kick-Plate</span> – SELECT COLOUR
       </h2>
 
-      <div className="mb-6 text-lg font-semibold text-white bg-white-600 inline-block px-4 py-2 rounded">
+      {/* Sub Heading */}
+      <div className="mb-6 text-lg font-semibold text-white bg-green-600 inline-block px-4 py-2 rounded shadow">
         Select Colour
       </div>
 
+      {/* Colour Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
         {colorsData.map((color, idx) => (
           <div
@@ -83,14 +88,16 @@ const Step6_SelectColour = () => {
             className={`cursor-pointer rounded-lg p-4 text-center shadow-md border relative transition ${
               color.available ? `${color.color} text-white` : 'bg-gray-100 text-gray-400 border-gray-400'
             } ${
-              kickplateData.selectedColour?.thickness === color.thickness ? 'ring-4 ring-yellow-400' : ''
+              selectedColour?.thickness === color.thickness ? 'ring-4 ring-yellow-400' : ''
             }`}
           >
             {!color.available && (
               <div className="absolute top-1 left-2 text-red-700 text-xs font-bold">NA</div>
             )}
             <div className="text-xl font-semibold">{color.thickness}</div>
-            <div className="text-sm mt-2">{color.leadTime} - @ {color.price}</div>
+            <div className="text-sm mt-2">
+              {color.leadTime} - @ Dhs{color.price}/sm
+            </div>
           </div>
         ))}
       </div>
@@ -99,9 +106,9 @@ const Step6_SelectColour = () => {
       <div className="flex justify-center">
         <button
           onClick={handlePreview}
-          disabled={!kickplateData.selectedColour}
+          disabled={!selectedColour}
           className={`px-6 py-3 rounded shadow font-semibold transition ${
-            kickplateData.selectedColour
+            selectedColour
               ? 'bg-purple-600 text-white hover:bg-purple-700'
               : 'bg-gray-400 text-white cursor-not-allowed'
           }`}

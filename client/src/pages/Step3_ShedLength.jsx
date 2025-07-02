@@ -6,23 +6,22 @@ const Step3_ShedLength = () => {
   const navigate = useNavigate();
   const { kickplateData, setKickplateData } = useKickplate();
 
-  // Convert to mm if unit was previously stored as something else
   const convertToMM = (value, unit) => {
     const val = parseFloat(value);
     if (isNaN(val)) return 0;
     switch (unit) {
-      case 'cm':
-        return val * 10;
-      case 'meter':
-        return val * 1000;
-      default:
-        return val;
+      case 'cm': return val * 10;
+      case 'meter': return val * 1000;
+      default: return val;
     }
   };
 
   useEffect(() => {
-    // If not mm, convert and store as mm
-    if (kickplateData.shedLength && kickplateData.shedLengthUnit && kickplateData.shedLengthUnit !== 'mm') {
+    if (
+      kickplateData.shedLength &&
+      kickplateData.shedLengthUnit &&
+      kickplateData.shedLengthUnit !== 'mm'
+    ) {
       const converted = convertToMM(kickplateData.shedLength, kickplateData.shedLengthUnit);
       setKickplateData({
         ...kickplateData,
@@ -47,6 +46,15 @@ const Step3_ShedLength = () => {
 
   const handleNext = () => {
     if (!isValidLength) return;
+
+    const converted = convertToMM(kickplateData.shedLength, kickplateData.shedLengthUnit);
+
+    setKickplateData({
+      ...kickplateData,
+      shedLength: converted.toString(),
+      shedLengthUnit: 'mm',
+    });
+
     navigate('/order/step4');
   };
 
@@ -59,7 +67,7 @@ const Step3_ShedLength = () => {
       {/* Preview Section */}
       <div className="relative flex flex-col items-center justify-center mb-16">
         <div className="flex items-center">
-          {/* Vertical Arrow (cut length) */}
+          {/* Vertical Arrow */}
           <div className="flex items-center mr-6">
             <div className="text-sm font-semibold text-right mr-2 w-16 text-[#5c4033]">
               {kickplateData.cutLength} mm
@@ -91,7 +99,7 @@ const Step3_ShedLength = () => {
             <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[45deg]" />
           </div>
           <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
-            {isValidLength ? `${kickplateData.shedLength} mm` : 'Enter Length'}
+            {isValidLength ? `${kickplateData.shedLength} ${kickplateData.shedLengthUnit}` : 'Enter Length'}
           </div>
         </div>
       </div>
@@ -109,11 +117,15 @@ const Step3_ShedLength = () => {
           className="p-2 w-48 rounded bg-white border border-gray-300 text-gray-700 shadow-sm"
         />
         <select
-          value="mm"
-          disabled
-          className="p-2 w-32 rounded bg-gray-100 border border-gray-300 text-gray-600 cursor-not-allowed"
+          value={kickplateData.shedLengthUnit}
+          onChange={(e) =>
+            setKickplateData({ ...kickplateData, shedLengthUnit: e.target.value })
+          }
+          className="p-2 w-32 rounded bg-white border border-gray-300 text-gray-700 shadow-sm"
         >
           <option value="mm">mm</option>
+          <option value="cm">cm</option>
+          <option value="meter">meter</option>
         </select>
       </div>
 
