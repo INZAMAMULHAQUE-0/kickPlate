@@ -7,6 +7,7 @@ import StepLayout from '../components/StepLayout';
 import Step4_FinalSizes from './Step4_FinalSizes';
 import Step5_Preview from './Step5_Preview';
 import Step6_SelectColour from './Step6_SelectColour';
+import Step7_Preview_bill from './Step7_Preview_bill';
 
 const OrderFlow = () => (
   <StepLayout>
@@ -17,6 +18,7 @@ const OrderFlow = () => (
       <Route path="/step4" element={<Step4_FinalSizes />} />
       <Route path="/step5" element={<Step5_Preview/>} />
       <Route path="/step6" element={<Step6_SelectColour/>} />
+      <Route path="/step7" element={<Step7_Preview_bill/>} />
     </Routes>
   </StepLayout>
 );

@@ -23,7 +23,7 @@ const PreviewPage = () => {
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center px-6 py-10 text-[#5c4033]">
       <h1 className="text-3xl font-bold text-purple-800 mb-10 text-center border border-purple-400 px-6 py-2">
-        <span className="text-blue-600">200 mm Kick-Plate –</span> Final Preview
+        <span className="text-blue-600"></span> Final Preview
       </h1>
       {/* Preview Section */}
       <div className="relative mb-16 flex flex-col items-center justify-center">
@@ -65,7 +65,7 @@ const PreviewPage = () => {
         </div>
       </div>
 
-      {/* Cut, Trim, Support Fields (Styled like Step4_FinalSizes) */}
+      {/* Cut, Trim, Support Fields*/}
       <div className="w-full max-w-xl flex flex-col gap-6 mb-12">
         <div className="flex justify-between items-center">
           <label className="text-lg font-medium w-1/2">Cut Length (200)</label>

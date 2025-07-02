@@ -55,7 +55,7 @@ export const KickplateProvider = ({ children }) => {
       step6: false
     });
 
-    console.log('✅ Added to allSets:', [...allSets, kickplateData]);
+    console.log('Added to allSets:', [...allSets, kickplateData]);
   };
 
   return (
