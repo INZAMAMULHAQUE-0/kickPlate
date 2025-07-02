@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
 
 const PreviewPage = () => {
-  const { kickplateData } = useKickplate();
+  const { kickplateData,addNewSet } = useKickplate();
   const navigate = useNavigate();
 
   const {
@@ -99,7 +99,9 @@ const PreviewPage = () => {
       {/* Navigation Buttons */}
       <div className="flex flex-col sm:flex-row gap-6 mt-8">
         <button
-          onClick={() => navigate('/order/step2')}
+          onClick={() => {
+            addNewSet();
+            navigate('/order/step2')}}
           className="px-6 py-3 bg-gradient-to-br from-[#8b4513] to-black text-white font-semibold rounded shadow hover:opacity-90 transition"
         >
           Add More Sizes
