@@ -4,51 +4,58 @@ const KickplateContext = createContext();
 
 export const KickplateProvider = ({ children }) => {
   const [kickplateData, setKickplateData] = useState({
-    model: 'default',
+    model: 'Closed Joint',
     cutLength: '200',
     cutLengthUnit: 'mm',
     shedLength: '',
     shedLengthUnit: 'mm',
     trimLengthPieces: '',
     supportLengthPieces: '',
-    cutLengthPieces: ''
+    cutLengthPieces: '',
+    selectedColour: null
   });
 
   const [stepStatus, setStepStatus] = useState({
     step1: false,
     step2: false,
     step3: false,
-    step4: false
+    step4: false,
+    step5: false,
+    step6: false
   });
 
-  const [allKickplateSets, setAllKickplateSets] = useState([]);
+  // 🧠 All completed sets of configurations
+  const [allSets, setAllSets] = useState([]);
 
+  // ➕ Add current set to allSets & reset for new input
   const addNewSet = () => {
-    setAllKickplateSets(prev => {
-      const updatedSets = [...prev, kickplateData];
-      console.log('✅ Stored Sets:', updatedSets); // Logging all sets
-      return updatedSets;
-    });
+    // Store current filled set
+    setAllSets(prev => [...prev, kickplateData]);
 
-    // Reset form data
+    // Reset to start fresh
     setKickplateData({
-      model: 'Closed joint',
+      model: 'default',
       cutLength: '200',
       cutLengthUnit: 'mm',
       shedLength: '',
       shedLengthUnit: 'mm',
       trimLengthPieces: '',
       supportLengthPieces: '',
-      cutLengthPieces: ''
+      cutLengthPieces: '',
+      selectedColour: null
     });
 
-    // Optionally reset steps too
+    // Reset step status too
     setStepStatus({
       step1: false,
       step2: false,
       step3: false,
-      step4: false
+      step4: false,
+      step5: false,
+      step6: false
     });
+
+    console.log('✅ Added to allSets:', [...allSets, kickplateData]);
   };
 
   return (
@@ -58,7 +65,8 @@ export const KickplateProvider = ({ children }) => {
         setKickplateData,
         stepStatus,
         setStepStatus,
-        allKickplateSets,
+        allSets,
+        setAllSets,
         addNewSet
       }}
     >
