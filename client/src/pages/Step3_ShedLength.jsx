@@ -4,7 +4,7 @@ import { useKickplate } from '../context/KickplateContext';
 
 const Step3_ShedLength = () => {
   const navigate = useNavigate();
-  const { kickplateData, setKickplateData } = useKickplate();
+  const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
 
   const convertToMM = (value, unit) => {
     const val = parseFloat(value);
@@ -55,6 +55,7 @@ const Step3_ShedLength = () => {
       shedLengthUnit: 'mm',
     });
 
+    setStepStatus(prev => ({ ...prev, step3: true }));
     navigate('/order/step4');
   };
 

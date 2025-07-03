@@ -10,11 +10,12 @@ const Step6_SelectColour = () => {
     setKickplateData,
     allSets = [],
     selectedColour,
-    setSelectedColour
+    setSelectedColour,
+    stepStatus, setStepStatus
   } = useKickplate();
 
   const colorsData = [
-    { thickness: '0.6 mm', leadTime: '2-3 Days', price: '55', available: true, color: 'bg-blue-600' },
+    //{ thickness: '0.6 mm', leadTime: '2-3 Days', price: '55', available: true, color: 'bg-blue-600' },
     { thickness: '0.7 mm', leadTime: '2-3 Days', price: '75', available: true, color: 'bg-lime-500' },
     { thickness: '0.6 mm', leadTime: '2-3 Days', price: '55', available: false, color: 'bg-purple-200' },
     { thickness: '1.2 mm', leadTime: '2-15 Days', price: '55', available: true, color: 'bg-blue-600' },
@@ -33,7 +34,7 @@ const Step6_SelectColour = () => {
 
   const handlePreview = () => {
     if (selectedColour) {
-      console.log('Selected Colour:', selectedColour);
+      setStepStatus(prev => ({ ...prev, step6: true })); 
       navigate('/order/step7');
     }
   };
@@ -46,64 +47,66 @@ const Step6_SelectColour = () => {
     supportLengthPieces
   } = kickplateData;
 
-  // Totals (current + saved sets)
   const totalCut = allSets.reduce((sum, set) => sum + Number(set.cutLengthPieces || 0), 0) + Number(cutLengthPieces || 0);
   const totalTrim = allSets.reduce((sum, set) => sum + Number(set.trimLengthPieces || 0), 0) + Number(trimLengthPieces || 0);
   const totalSupport = allSets.reduce((sum, set) => sum + Number(set.supportLengthPieces || 0), 0) + Number(supportLengthPieces || 0);
 
   return (
-    <div className="min-h-screen relative bg-[#f5f5dc] px-6 pt-40 pb-10 text-[#5c4033]">
-      {/* Floating Summary */}
-      <div className="fixed top-28 right-6 bg-white border border-purple-300 shadow-lg p-4 rounded text-sm w-60 z-50">
-        <div className="flex justify-between items-center bg-green-600 text-white rounded mb-2 py-1 px-3 font-semibold">
-          <span>Cut Length 200 mm</span>
-          <span>{totalCut} pcs</span>
-        </div>
-        <div className="flex justify-between items-center bg-green-600 text-white rounded mb-2 py-1 px-3 font-semibold">
-          <span>Trim 3 m</span>
-          <span>{totalTrim} pcs</span>
-        </div>
-        <div className="flex justify-between items-center bg-green-600 text-white rounded mb-3 py-1 px-3 font-semibold">
-          <span>Support 3 m</span>
-          <span>{totalSupport} pcs</span>
-        </div>
-      </div>
-
-      {/* Title */}
+    <div className="min-h-screen bg-[#f5f5dc] px-6 pt-24 pb-10 text-[#5c4033]">
+      {/* Page Title */}
       <h2 className="text-3xl font-bold text-purple-800 mb-10 text-center border-b pb-2">
-        <span className="text-blue-600">Kick-Plate</span> – SELECT COLOUR
+        <span className="text-blue-600"></span>SELECT COLOUR
       </h2>
 
       {/* Sub Heading */}
-      <div className="mb-6 text-lg font-semibold text-white bg-green-600 inline-block px-4 py-2 rounded shadow">
+      <div className="mb-8 text-lg font-semibold text-white bg-green-600 inline-block px-4 py-2 rounded shadow">
         Select Colour
       </div>
 
-      {/* Colour Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-        {colorsData.map((color, idx) => (
-          <div
-            key={idx}
-            onClick={() => handleSelect(color)}
-            className={`cursor-pointer rounded-lg p-4 text-center shadow-md border relative transition ${
-              color.available ? `${color.color} text-white` : 'bg-gray-100 text-gray-400 border-gray-400'
-            } ${
-              selectedColour?.thickness === color.thickness ? 'ring-4 ring-yellow-400' : ''
-            }`}
-          >
-            {!color.available && (
-              <div className="absolute top-1 left-2 text-red-700 text-xs font-bold">NA</div>
-            )}
-            <div className="text-xl font-semibold">{color.thickness}</div>
-            <div className="text-sm mt-2">
-              {color.leadTime} - @ Dhs{color.price}/sm
+      {/* Main Grid and Summary */}
+      <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
+        {/* Colours Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">
+          {colorsData.map((color, idx) => (
+            <div
+              key={idx}
+              onClick={() => handleSelect(color)}
+              className={`cursor-pointer rounded-lg p-4 text-center shadow-md border relative transition ${
+                color.available ? `${color.color} text-white` : 'bg-gray-100 text-gray-400 border-gray-400'
+              } ${
+                selectedColour?.thickness === color.thickness ? 'ring-4 ring-yellow-400' : ''
+              }`}
+            >
+              {!color.available && (
+                <div className="absolute top-1 left-2 text-red-700 text-xs font-bold">NA</div>
+              )}
+              <div className="text-xl font-semibold">{color.thickness}</div>
+              <div className="text-sm mt-2">
+                {color.leadTime} - @ Dhs{color.price}/sm
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Floating Summary - now positioned side by side on large screens */}
+        <div className="w-full max-w-xs bg-white border border-purple-300 shadow-lg p-4 rounded text-sm">
+          <div className="flex justify-between items-center bg-green-600 text-white rounded mb-2 py-1 px-3 font-semibold">
+            <span>Cut Length 200 mm</span>
+            <span>{totalCut} pcs</span>
           </div>
-        ))}
+          <div className="flex justify-between items-center bg-green-600 text-white rounded mb-2 py-1 px-3 font-semibold">
+            <span>Trim 3 m</span>
+            <span>{totalTrim} pcs</span>
+          </div>
+          <div className="flex justify-between items-center bg-green-600 text-white rounded mb-2 py-1 px-3 font-semibold">
+            <span>Support 3 m</span>
+            <span>{totalSupport} pcs</span>
+          </div>
+        </div>
       </div>
 
       {/* Preview Button */}
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-12">
         <button
           onClick={handlePreview}
           disabled={!selectedColour}

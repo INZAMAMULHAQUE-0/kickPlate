@@ -23,6 +23,7 @@ const Step1_SelectModel = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center px-6 py-10">
+      <h1>website isn't live.Just discovering the flow, not the final look!!</h1>
       <h1 className="text-3xl font-bold text-[#5c4033] mb-10 text-center">
         <span className="text-blue-700"></span> Model
       </h1>
@@ -35,13 +36,14 @@ const Step1_SelectModel = () => {
       </div>
 
       {/* Disabled Model Dropdown */}
-      <select
-        value={kickplateData.model}
-        className="w-72 p-2 rounded bg-gray-100 border border-gray-300 mb-6 cursor-not-allowed"
-      >
-        <option value="closed joint">closed joint</option>
-        <option value="grove joint" disabled>grove joint</option>
-      </select>
+<select
+  value={kickplateData.model}
+  className="w-72 p-2 rounded bg-gray-100 border border-gray-300 mb-6 cursor-not-allowed text-black"
+>
+  <option value="closed joint">closed joint</option>
+  <option value="grove joint" disabled>grove joint</option>
+</select>
+
 
       {/* Next Button */}
       <button

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
 
 const PreviewPage = () => {
-  const { kickplateData,addNewSet } = useKickplate();
+  const { kickplateData,addNewSet,stepStatus, setStepStatus} = useKickplate();
   const navigate = useNavigate();
 
   const {
@@ -101,13 +101,17 @@ const PreviewPage = () => {
         <button
           onClick={() => {
             addNewSet();
+            // setStepStatus(prev => ({ ...prev, step5: true }));
             navigate('/order/step2')}}
           className="px-6 py-3 bg-gradient-to-br from-[#8b4513] to-black text-white font-semibold rounded shadow hover:opacity-90 transition"
         >
           Add More Sizes
         </button>
         <button
-          onClick={() => navigate('/order/step6')}
+          onClick={() => {
+            setStepStatus(prev => ({ ...prev, step5: true }));
+            navigate('/order/step6');
+          }}
           className="px-6 py-3 bg-gradient-to-br from-purple-600 to-pink-500 text-white font-semibold rounded shadow hover:opacity-90 transition"
         >
           Next: Choose Colour

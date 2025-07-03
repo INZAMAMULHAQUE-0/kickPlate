@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
 
 const Step4_FinalSizes = () => {
-  const { kickplateData, setKickplateData } = useKickplate();
+  const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
   const navigate = useNavigate();
 
   const [isEditable, setIsEditable] = useState(false);
@@ -53,7 +53,10 @@ const Step4_FinalSizes = () => {
     setKickplateData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePreview = () => navigate('/order/step5');
+  const handlePreview = () =>{
+    setStepStatus(prev => ({ ...prev, step4: true }));
+    navigate('/order/step5');
+  } 
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center px-6 py-10 text-[#5c4033]">

@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 const VideoIntro = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black">
-      <p className="text-white text-xl">(Pre-video placeholder: product showcase)</p>
+    <div className="w-full aspect-video bg-black rounded shadow flex items-center justify-center">
+      <p className="text-white text-xl">(Product showcase video coming soon)</p>
     </div>
   );
 };

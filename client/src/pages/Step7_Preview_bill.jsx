@@ -3,7 +3,7 @@ import { useKickplate } from '../context/KickplateContext';
 import { useNavigate } from 'react-router-dom';
 
 const Step7_Preview_bill = () => {
-  const { kickplateData, allSets, selectedColour } = useKickplate();
+  const { kickplateData, allSets, selectedColour, stepStatus, setStepStatus } = useKickplate();
   const navigate = useNavigate();
 
   const sets = [...(allSets || []), kickplateData];
@@ -15,11 +15,13 @@ const Step7_Preview_bill = () => {
   const panelRows = sets.map((set, idx) => {
     const cutLen = set.cutLength || '200';
     const pieces = Number(set.cutLengthPieces || 0);
-    const total = pieces * panelRate;
+    const area = pieces * 0.4
+    const total = area * panelRate;
 
     return {
       label: `Panel ${cutLen} mm`,
       pieces,
+      area,
       rate: panelRate,
       total
     };
@@ -38,14 +40,14 @@ const Step7_Preview_bill = () => {
   return (
     <div className="min-h-screen bg-[#f5f5dc] p-10 text-[#333]">
       <h1 className="text-3xl font-bold text-purple-700 border-b-2 border-purple-300 pb-2 mb-8">
-        <span className="text-blue-600">Kick-Plate</span> – STEP 8 - PREVIEW ORDER
+        <span className="text-blue-600"></span>PREVIEW ORDER
       </h1>
 
       {/* Panels */}
       {panelRows.map((row, idx) => (
         <div key={idx} className="flex items-center gap-4 mb-4">
           <div className="border border-purple-500 px-4 py-2 w-48 text-center font-semibold">{row.label}</div>
-          <div className="border border-purple-500 px-4 py-2 w-48 text-center">{row.pieces} pieces </div>
+          <div className="border border-purple-500 px-4 py-2 w-48 text-center">{row.pieces} pieces = {row.area} sm</div>
           <div className="border border-purple-500 px-4 py-2 w-32 text-center">@ Dhs {row.rate}</div>
           <div className="border border-purple-500 px-4 py-2 w-32 text-center">{row.total.toFixed(2)} Dhs</div>
         </div>
@@ -95,7 +97,10 @@ const Step7_Preview_bill = () => {
       {/* Button */}
       <div className="flex justify-end mt-10">
         <button
-          onClick={() => navigate('/order/step9')}
+          onClick={() => {
+            setStepStatus(prev => ({ ...prev, step7: true }));
+            navigate('/order/step9');
+          }}
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded shadow text-lg font-semibold"
         >
           Choose Delivery

@@ -30,7 +30,6 @@ const Step2_CutLength = () => {
         cutLengthUnit: 'mm',
       });
     } else {
-      // Convert existing value to mm if not already
       const mmValue = convertToMM(kickplateData.cutLength, kickplateData.cutLengthUnit);
       setKickplateData({
         ...kickplateData,
@@ -93,19 +92,22 @@ const Step2_CutLength = () => {
       <div className="flex gap-2 mb-4">
         <input
           type="number"
-          value={cutLengthValue}
+          defaultValue={cutLengthValue}
           disabled
           className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700 cursor-not-allowed"
         />
         <select
           value="mm"
+          className="p-2 rounded bg-white border border-gray-300 text-black"
           disabled
-          className="p-2 rounded bg-gray-100 border border-gray-300 cursor-not-allowed"
         >
           <option value="mm">mm</option>
+          <option value="cm" disabled>cm</option>
+          <option value="meter" disabled>meter</option>
         </select>
       </div>
 
+      {/* Next Button */}
       <button
         onClick={handleNext}
         disabled={!isValidHeight}
