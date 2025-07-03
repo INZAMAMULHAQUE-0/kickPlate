@@ -6,37 +6,13 @@ const Step2_CutLength = () => {
   const navigate = useNavigate();
   const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
 
-  // Convert any unit to millimeters
-  const convertToMM = (value, unit) => {
-    const val = parseFloat(value);
-    if (isNaN(val)) return 0;
-
-    switch (unit) {
-      case 'cm':
-        return val * 10;
-      case 'meter':
-        return val * 1000;
-      default:
-        return val; // already in mm
-    }
-  };
-
-  // Initialize default values
+  // Initialize default values on load
   useEffect(() => {
-    if (!kickplateData.cutLength || !kickplateData.cutLengthUnit) {
-      setKickplateData({
-        ...kickplateData,
-        cutLength: '200',
-        cutLengthUnit: 'mm',
-      });
-    } else {
-      const mmValue = convertToMM(kickplateData.cutLength, kickplateData.cutLengthUnit);
-      setKickplateData({
-        ...kickplateData,
-        cutLength: mmValue.toString(),
-        cutLengthUnit: 'mm',
-      });
-    }
+    setKickplateData({
+      ...kickplateData,
+      cutLength: '200',
+      cutLengthUnit: 'mm',
+    });
   }, []);
 
   const cutLengthValue = parseFloat(kickplateData.cutLength);
@@ -66,12 +42,10 @@ const Step2_CutLength = () => {
 
       {/* Preview Area */}
       <div className="relative flex items-center justify-center mb-10">
-        {/* Left label + arrow */}
         <div className="flex items-center mr-4">
           <div className="text-[#5c4033] font-semibold text-sm mr-2 w-16 text-right">
             {isValidHeight ? `${cutLengthValue} mm` : 'Cut Length'}
           </div>
-
           <div
             className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
             style={{ height: `${dynamicArrowHeight}px` }}
@@ -82,24 +56,36 @@ const Step2_CutLength = () => {
           </div>
         </div>
 
-        {/* Preview Box */}
         <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center">
           <span className="text-gray-400 italic text-lg">Preview Box</span>
         </div>
       </div>
 
-      {/* Disabled Inputs */}
+      {/* Cut Length Dropdown */}
       <div className="flex gap-2 mb-4">
-        <input
-          type="number"
-          defaultValue={cutLengthValue}
-          disabled
-          className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700 cursor-not-allowed"
-        />
+        <select
+          value={kickplateData.cutLength}
+          onChange={(e) =>
+            setKickplateData({
+              ...kickplateData,
+              cutLength: e.target.value,
+              cutLengthUnit: 'mm',
+            })
+          }
+          className="p-2 rounded bg-white border border-gray-300 text-black"
+        >
+          <option value="100" disabled>
+            100 mm (Not Available)
+          </option>
+          <option value="200">200 mm</option>
+          <option value="300" disabled>
+            300 mm (Not Available)
+          </option>
+        </select>
+
         <select
           value="mm"
-          className="p-2 rounded bg-white border border-gray-300 text-black"
-          disabled
+          className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700"
         >
           <option value="mm">mm</option>
           <option value="cm" disabled>cm</option>

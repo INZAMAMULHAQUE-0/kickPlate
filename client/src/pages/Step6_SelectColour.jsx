@@ -58,11 +58,6 @@ const Step6_SelectColour = () => {
         <span className="text-blue-600"></span>SELECT COLOUR
       </h2>
 
-      {/* Sub Heading */}
-      <div className="mb-8 text-lg font-semibold text-white bg-green-600 inline-block px-4 py-2 rounded shadow">
-        Select Colour
-      </div>
-
       {/* Main Grid and Summary */}
       <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
         {/* Colours Grid */}
