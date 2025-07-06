@@ -14,12 +14,12 @@ const Step7_Preview_bill = () => {
 
   const panelRows = sets.map((set, idx) => {
     const cutLen = set.cutLength/1000;
-    const area = cutLen * getAreaPerPiece;
     const pieces = Number(set.cutLengthPieces || 0);
+    const area = cutLen * getAreaPerPiece * pieces;
     const total = area * panelRate;
 
     return {
-      label: `Panel ${cutLen} mm`,
+      label: `Panel ${set.cutLength} mm`,
       pieces,
       area,
       rate: panelRate,
