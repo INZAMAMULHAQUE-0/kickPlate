@@ -60,7 +60,7 @@ const Step3_ShedLength = () => {
 
   const formatDisplay = (value, unit) => {
     const val = parseFloat(value);
-    if (isNaN(val)) return '—';
+    if (isNaN(val)) return '';
     let displayValue = val;
 
     switch (unit) {
@@ -69,14 +69,14 @@ const Step3_ShedLength = () => {
         return `${Number(displayValue.toFixed(1))} cm`;
       case 'meter':
         displayValue = val / 1000;
-        return `${Number(displayValue.toFixed(2))} meters`;
+        return `${Number(displayValue.toFixed(2))} m`;
       default:
         return `${Number(val.toFixed(0))} mm`;
     }
   };
 
   const formattedCutLength = formatDisplay(kickplateData.cutLength, kickplateData.cutLengthUnit);
-  const formattedShedLength = formatDisplay(kickplateData.shedLength, kickplateData.shedLengthUnit);
+  
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-6">
@@ -119,7 +119,7 @@ const Step3_ShedLength = () => {
                 <div className="w-3 h-3 border-t-2 border-l-2 border-gray-600 rotate-[135deg]" />
               </div>
               <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
-                {formattedShedLength}
+                {kickplateData.shedLength} {kickplateData.shedLengthUnit}
               </div>
             </div>
           </div>

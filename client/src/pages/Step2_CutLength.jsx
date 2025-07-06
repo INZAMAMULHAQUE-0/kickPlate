@@ -41,11 +41,9 @@ const Step2_CutLength = () => {
     if (!kickplateData.cutLength || !kickplateData.cutLengthUnit) {
       setKickplateData({
         ...kickplateData,
-        cutLength: '200',
+        cutLength: '',
         cutLengthUnit: 'mm',
       });
-      setInputValue('200');
-      setSelectedUnit('mm');
     } else {
       const formatted = displayFormattedValue();
       setInputValue(formatted);
