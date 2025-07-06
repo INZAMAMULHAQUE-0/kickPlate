@@ -9,17 +9,14 @@ const Step2_CutLength = () => {
   const [inputValue, setInputValue] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('mm');
 
-  // Conversion utility
+  // Convert value to millimeters
   const convertToMM = (value, unit) => {
     const val = parseFloat(value);
     if (isNaN(val)) return 0;
     switch (unit) {
-      case 'cm':
-        return val * 10;
-      case 'meter':
-        return val * 1000;
-      default:
-        return val;
+      case 'cm': return val * 10;
+      case 'meter': return val * 1000;
+      default: return val;
     }
   };
 
@@ -27,31 +24,19 @@ const Step2_CutLength = () => {
     const mm = parseFloat(kickplateData.cutLength);
     if (isNaN(mm)) return '';
     switch (selectedUnit) {
-      case 'cm':
-        return (mm / 10).toFixed(1);
-      case 'meter':
-        return (mm / 1000).toFixed(2);
-      default:
-        return mm.toString();
+      case 'cm': return (mm / 10).toFixed(1);
+      case 'meter': return (mm / 1000).toFixed(2);
+      default: return mm.toString();
     }
   };
 
-  // On mount: set default if missing
+  // Load existing values if present, no default applied
   useEffect(() => {
-    if (!kickplateData.cutLength || !kickplateData.cutLengthUnit) {
-      setKickplateData({
-        ...kickplateData,
-        cutLength: '',
-        cutLengthUnit: 'mm',
-      });
-    } else {
-      const formatted = displayFormattedValue();
-      setInputValue(formatted);
-      setSelectedUnit(kickplateData.cutLengthUnit || 'mm');
+    if (kickplateData.cutLengthUnit) {
+      setSelectedUnit(kickplateData.cutLengthUnit);
     }
   }, []);
 
-  // Handle input change
   const handleLengthChange = (val) => {
     setInputValue(val);
     const converted = convertToMM(val, selectedUnit);
@@ -105,9 +90,8 @@ const Step2_CutLength = () => {
         Cut Length
       </h1>
 
-      {/* Preview Area with Arrow */}
+      {/* Arrow Preview */}
       <div className="relative flex items-center justify-center mb-10">
-        {/* Arrow + Label */}
         <div className="flex items-center mr-4">
           <div className="text-[#5c4033] font-semibold text-sm mr-2 w-24 text-right">
             {getLabel()}
@@ -128,11 +112,12 @@ const Step2_CutLength = () => {
         </div>
       </div>
 
-      {/* Input + Unit Selection */}
+      {/* Inputs */}
       <div className="flex gap-2 mb-4">
         <input
           type="number"
           min="0"
+          placeholder="Cut Length"
           value={inputValue}
           onChange={(e) => handleLengthChange(e.target.value)}
           className="p-2 rounded bg-white border border-gray-300 text-black w-32"
@@ -148,7 +133,7 @@ const Step2_CutLength = () => {
         </select>
       </div>
 
-      {/* Next Button */}
+      {/* Next */}
       <button
         onClick={handleNext}
         disabled={!isValidHeight}

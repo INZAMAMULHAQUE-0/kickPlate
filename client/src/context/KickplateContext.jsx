@@ -18,7 +18,7 @@ export const KickplateProvider = ({ children }) => {
       model: 'Closed Joint',
       width: '200',
       widthUnit: 'mm',
-      cutLength: '200',
+      cutLength: '',
       cutLengthUnit: 'mm',
       shedLength: '',
       shedLengthUnit: 'mm',
@@ -71,10 +71,10 @@ export const KickplateProvider = ({ children }) => {
     setAllSets(prev => [...prev, kickplateData]);
 
     setKickplateData({
-      model: 'default',
+      model: 'Closed Joint',
       width: '200',
       widthUnit: 'mm',
-      cutLength: '200',
+      cutLength: '',
       cutLengthUnit: 'mm',
       shedLength: '',
       shedLengthUnit: 'mm',
