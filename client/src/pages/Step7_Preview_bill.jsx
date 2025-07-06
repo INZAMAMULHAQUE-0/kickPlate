@@ -47,7 +47,7 @@ const Step7_Preview_bill = () => {
       {panelRows.map((row, idx) => (
         <div key={idx} className="flex items-center gap-4 mb-4">
           <div className="border border-purple-500 px-4 py-2 w-48 text-center font-semibold">{row.label}</div>
-          <div className="border border-purple-500 px-4 py-2 w-48 text-center">{row.pieces} pieces = {row.area} sm</div>
+          <div className="border border-purple-500 px-4 py-2 w-48 text-center">{row.pieces} pieces = {row.area.toFixed(2)} sm</div>
           <div className="border border-purple-500 px-4 py-2 w-32 text-center">@ Dhs {row.rate}</div>
           <div className="border border-purple-500 px-4 py-2 w-32 text-center">{row.total.toFixed(2)} Dhs</div>
         </div>
