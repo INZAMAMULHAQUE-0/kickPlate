@@ -16,6 +16,8 @@ export const KickplateProvider = ({ children }) => {
   const [kickplateData, setKickplateData] = useState(() =>
     loadFromLocalStorage('kickplateData', {
       model: 'Closed Joint',
+      width: '200',
+      widthUnit: 'mm',
       cutLength: '200',
       cutLengthUnit: 'mm',
       shedLength: '',
@@ -70,6 +72,8 @@ export const KickplateProvider = ({ children }) => {
 
     setKickplateData({
       model: 'default',
+      width: '200',
+      widthUnit: 'mm',
       cutLength: '200',
       cutLengthUnit: 'mm',
       shedLength: '',

@@ -9,13 +9,13 @@ const Step7_Preview_bill = () => {
   const sets = [...(allSets || []), kickplateData];
   const getAreaPerPiece = 0.2;
   const panelRate = Number(selectedColour?.price || 0);
-  const trimRate = panelRate;
-  const supportRate = panelRate;
+  const trimRate = selectedColour?.trimerate || 0;
+  const supportRate = selectedColour?.supportrate || 0;
 
   const panelRows = sets.map((set, idx) => {
-    const cutLen = set.cutLength || '200';
+    const cutLen = set.cutLength/1000;
+    const area = cutLen * getAreaPerPiece;
     const pieces = Number(set.cutLengthPieces || 0);
-    const area = pieces * 0.4
     const total = area * panelRate;
 
     return {

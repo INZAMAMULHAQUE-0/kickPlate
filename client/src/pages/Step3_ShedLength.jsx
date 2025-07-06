@@ -48,7 +48,6 @@ const Step3_ShedLength = () => {
     if (!isValidLength) return;
 
     const converted = convertToMM(kickplateData.shedLength, kickplateData.shedLengthUnit);
-
     setKickplateData({
       ...kickplateData,
       shedLength: converted.toString(),
@@ -59,6 +58,26 @@ const Step3_ShedLength = () => {
     navigate('/order/step4');
   };
 
+  const formatDisplay = (value, unit) => {
+    const val = parseFloat(value);
+    if (isNaN(val)) return '—';
+    let displayValue = val;
+
+    switch (unit) {
+      case 'cm':
+        displayValue = val / 10;
+        return `${Number(displayValue.toFixed(1))} cm`;
+      case 'meter':
+        displayValue = val / 1000;
+        return `${Number(displayValue.toFixed(2))} meters`;
+      default:
+        return `${Number(val.toFixed(0))} mm`;
+    }
+  };
+
+  const formattedCutLength = formatDisplay(kickplateData.cutLength, kickplateData.cutLengthUnit);
+  const formattedShedLength = formatDisplay(kickplateData.shedLength, kickplateData.shedLengthUnit);
+
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-6">
       <h1 className="text-2xl font-bold text-[#5c4033] mb-6 text-center">
@@ -66,16 +85,16 @@ const Step3_ShedLength = () => {
       </h1>
 
       {/* Preview Section */}
-      <div className="relative flex flex-col items-center justify-center mb-16">
+      <div className="relative mb-20 flex flex-col items-center justify-center">
         <div className="flex items-center">
           {/* Vertical Arrow */}
           <div className="flex items-center mr-6">
-            <div className="text-sm font-semibold text-right mr-2 w-16 text-[#5c4033]">
-              {kickplateData.cutLength} mm
+            <div className="text-sm font-semibold text-right mr-2 w-20 text-[#5c4033]">
+              {formattedCutLength}
             </div>
             <div
               className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
-              style={{ height: '128px' }}
+              style={{ height: `128px` }}
             >
               <div className="w-3 h-3 border-r-2 border-b-2 border-gray-600 rotate-[-135deg]" />
               <div className="h-full w-0.5 bg-gray-600" />
@@ -84,28 +103,30 @@ const Step3_ShedLength = () => {
           </div>
 
           {/* Preview Box */}
-          <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center shadow">
-            <span className="text-gray-400 italic text-lg">Preview Box</span>
-          </div>
-        </div>
+          <div className="relative">
+            <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded shadow flex items-center justify-center">
+              <span className="text-gray-400 italic text-lg">Preview Box</span>
+            </div>
 
-        {/* Horizontal Arrow */}
-        <div className="absolute left-90 -translate-x-1/2 top-full mt-4 flex flex-col items-center">
-          <div
-            className="flex items-center transition-all duration-300 ease-in-out"
-            style={{ width: `${dynamicArrowWidth}px`, maxWidth: '500px' }}
-          >
-            <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[-135deg]" />
-            <div className="h-0.5 bg-gray-600 flex-grow mx-1 min-w-[30px]" />
-            <div className="w-3 h-3 border-t-2 border-r-2 border-gray-600 rotate-[45deg]" />
-          </div>
-          <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
-            {isValidLength ? `${kickplateData.shedLength} ${kickplateData.shedLengthUnit}` : 'Enter Length'}
+            {/* Horizontal Arrow Below */}
+            <div className="absolute bottom-[-64px] left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div
+                className="flex items-center transition-all duration-300 ease-in-out"
+                style={{ width: `${dynamicArrowWidth}px`, maxWidth: '500px' }}
+              >
+                <div className="w-3 h-3 border-t-2 border-l-2 border-gray-600 rotate-[-45deg]" />
+                <div className="h-0.5 bg-gray-600 flex-grow mx-1" />
+                <div className="w-3 h-3 border-t-2 border-l-2 border-gray-600 rotate-[135deg]" />
+              </div>
+              <div className="mt-1 text-[#5c4033] font-semibold text-sm text-center">
+                {formattedShedLength}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Input Field */}
+      {/* Input Section */}
       <div className="mt-4 flex items-center gap-3 mb-8">
         <input
           type="number"

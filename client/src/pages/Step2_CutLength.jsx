@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
 
@@ -6,17 +6,78 @@ const Step2_CutLength = () => {
   const navigate = useNavigate();
   const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
 
-  // Initialize default values on load
+  const [inputValue, setInputValue] = useState('');
+  const [selectedUnit, setSelectedUnit] = useState('mm');
+
+  // Conversion utility
+  const convertToMM = (value, unit) => {
+    const val = parseFloat(value);
+    if (isNaN(val)) return 0;
+    switch (unit) {
+      case 'cm':
+        return val * 10;
+      case 'meter':
+        return val * 1000;
+      default:
+        return val;
+    }
+  };
+
+  const displayFormattedValue = () => {
+    const mm = parseFloat(kickplateData.cutLength);
+    if (isNaN(mm)) return '';
+    switch (selectedUnit) {
+      case 'cm':
+        return (mm / 10).toFixed(1);
+      case 'meter':
+        return (mm / 1000).toFixed(2);
+      default:
+        return mm.toString();
+    }
+  };
+
+  // On mount: set default if missing
   useEffect(() => {
-    setKickplateData({
-      ...kickplateData,
-      cutLength: '200',
-      cutLengthUnit: 'mm',
-    });
+    if (!kickplateData.cutLength || !kickplateData.cutLengthUnit) {
+      setKickplateData({
+        ...kickplateData,
+        cutLength: '200',
+        cutLengthUnit: 'mm',
+      });
+      setInputValue('200');
+      setSelectedUnit('mm');
+    } else {
+      const formatted = displayFormattedValue();
+      setInputValue(formatted);
+      setSelectedUnit(kickplateData.cutLengthUnit || 'mm');
+    }
   }, []);
 
-  const cutLengthValue = parseFloat(kickplateData.cutLength);
-  const isValidHeight = !isNaN(cutLengthValue) && cutLengthValue > 0;
+  // Handle input change
+  const handleLengthChange = (val) => {
+    setInputValue(val);
+    const converted = convertToMM(val, selectedUnit);
+    setKickplateData({
+      ...kickplateData,
+      cutLength: converted.toString(),
+      cutLengthUnit: selectedUnit,
+    });
+  };
+
+  const handleUnitChange = (unit) => {
+    setSelectedUnit(unit);
+    const formatted = displayFormattedValue();
+    setInputValue(formatted);
+    const converted = convertToMM(formatted, unit);
+    setKickplateData({
+      ...kickplateData,
+      cutLength: converted.toString(),
+      cutLengthUnit: unit,
+    });
+  };
+
+  const cutLengthMM = parseFloat(kickplateData.cutLength);
+  const isValidHeight = !isNaN(cutLengthMM) && cutLengthMM > 0;
 
   const handleNext = () => {
     if (!isValidHeight) return;
@@ -29,10 +90,16 @@ const Step2_CutLength = () => {
     const scale = 2.5;
     const min = 40;
     const max = 128;
-    return Math.min(Math.max(cutLengthValue * scale, min), max);
+    return Math.min(Math.max(cutLengthMM * scale, min), max);
   };
 
   const dynamicArrowHeight = getArrowHeight();
+
+  const getLabel = () => {
+    const val = parseFloat(inputValue);
+    if (isNaN(val)) return 'Cut Length';
+    return `${val} ${selectedUnit}`;
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center p-6">
@@ -40,11 +107,12 @@ const Step2_CutLength = () => {
         Cut Length
       </h1>
 
-      {/* Preview Area */}
+      {/* Preview Area with Arrow */}
       <div className="relative flex items-center justify-center mb-10">
+        {/* Arrow + Label */}
         <div className="flex items-center mr-4">
-          <div className="text-[#5c4033] font-semibold text-sm mr-2 w-16 text-right">
-            {isValidHeight ? `${cutLengthValue} mm` : 'Cut Length'}
+          <div className="text-[#5c4033] font-semibold text-sm mr-2 w-24 text-right">
+            {getLabel()}
           </div>
           <div
             className="flex flex-col items-center justify-center transition-all duration-300 ease-in-out"
@@ -56,40 +124,29 @@ const Step2_CutLength = () => {
           </div>
         </div>
 
+        {/* Preview Box */}
         <div className="w-[500px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center">
           <span className="text-gray-400 italic text-lg">Preview Box</span>
         </div>
       </div>
 
-      {/* Cut Length Dropdown */}
+      {/* Input + Unit Selection */}
       <div className="flex gap-2 mb-4">
+        <input
+          type="number"
+          min="0"
+          value={inputValue}
+          onChange={(e) => handleLengthChange(e.target.value)}
+          className="p-2 rounded bg-white border border-gray-300 text-black w-32"
+        />
         <select
-          value={kickplateData.cutLength}
-          onChange={(e) =>
-            setKickplateData({
-              ...kickplateData,
-              cutLength: e.target.value,
-              cutLengthUnit: 'mm',
-            })
-          }
+          value={selectedUnit}
+          onChange={(e) => handleUnitChange(e.target.value)}
           className="p-2 rounded bg-white border border-gray-300 text-black"
         >
-          <option value="100" disabled>
-            100 mm (Not Available)
-          </option>
-          <option value="200">200 mm</option>
-          <option value="300" disabled>
-            300 mm (Not Available)
-          </option>
-        </select>
-
-        <select
-          value="mm"
-          className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700"
-        >
           <option value="mm">mm</option>
-          <option value="cm" disabled>cm</option>
-          <option value="meter" disabled>meter</option>
+          <option value="cm">cm</option>
+          <option value="meter">meter</option>
         </select>
       </div>
 
