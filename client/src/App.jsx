@@ -12,7 +12,6 @@ const App = () => {
         <Route path="/login" element={<LoginRegister />} />
         <Route path="/order/*" element={<OrderFlow />} />
       </Routes>
-      <h1>website isn't live.Just discovering the flow, not the final look!!</h1>
     </>
   );
 };

@@ -10,100 +10,121 @@ const Step1_SelectModel = () => {
     setKickplateData({
       ...kickplateData,
       model: 'closed joint',
+      width: '200',
+      widthUnit: 'mm'
     });
   }, []);
 
-  const isNextEnabled = kickplateData.model;
-
   const handleNext = () => {
-    if (!isNextEnabled) return;
     setStepStatus({ ...stepStatus, step1: true });
     navigate('/order/step2');
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5dc] flex flex-col items-center px-6 py-10">
-      <h1>website isn't live. Just discovering the flow, not the final look!!</h1>
-      <h1 className="text-3xl font-bold text-[#5c4033] mb-10 text-center">
-        <span className="text-blue-700"></span> Model
-      </h1>
-
-      {/* Preview Box and Blue Strip + Arrow */}
-      <div className="mb-10 flex gap-10 items-start relative">
-        {/* Preview Box */}
-        <div className="w-[320px] h-32 bg-[#fdf6d7] border-2 border-gray-400 rounded-sm flex items-center justify-center relative overflow-hidden">
-          <div className="absolute w-[24px] h-full bg-blue-200 left-1/2 -translate-x-1/2 rounded" />
-          <span className="text-gray-400 italic text-lg z-10">Preview Box</span>
+    <div className="min-h-screen bg-[#F5F9F4] flex flex-col items-center px-4 sm:px-6 py-8">
+      {/* Header Section */}
+      <div className="w-full max-w-2xl text-center mb-8">
+        <div className="bg-white/80 inline-block px-4 py-1 rounded-full mb-3 shadow-sm border border-[#E0EDDC]">
+          <span className="text-xs text-[#5A6D5A]">Step 1 of 8</span>
         </div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#1A3A2F] mb-2">
+          Select Your Model
+        </h1>
+      </div>
 
-        {/* Blue Strip + Arrow Below */}
-        <div className="flex flex-col items-center">
-          {/* Blue strip (aligned with preview box height) */}
-          <div className="w-6 h-32 bg-blue-200 rounded shadow" />
-
-          {/* Horizontal arrow and label */}
-          <div className="mt-2 flex flex-col items-center">
-            <div className="flex items-center justify-center w-6 relative">
-              {/* Left Arrow Head */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 rotate-[-45deg] w-3 h-3 border-t-2 border-l-2 border-gray-600" />
-              {/* Line */}
-              <div className="h-0.5 w-full bg-gray-600 animate-pulse" />
-              {/* Right Arrow Head */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 rotate-[135deg] w-3 h-3 border-t-2 border-l-2 border-gray-600" />
-            </div>
-            <div className="mt-1 text-[#5c4033] font-semibold text-sm">200 mm</div>
+      {/* Preview Section */}
+      <div className="flex items-center gap-6 mb-8"> {/* Increased gap to 6 */}
+        {/* Preview Box with Center Blue Strip */}
+        <div className="relative -mt-10">
+          <div className="w-[240px] h-[160px] sm:w-[360px] sm:h-[240px] bg-white border-2 border-[#D4E3D0] rounded-md flex items-center justify-center shadow-inner overflow-hidden">
+            {/* Middle Blue Strip */}
+            <div className="absolute w-6 h-full bg-[#4A89DC] left-1/2 transform -translate-x-1/2 z-10 opacity-90" />
+            <span className="text-[#5A6D5A] italic text-lg sm:text-xl z-20 bg-white/80 px-3 py-1 rounded-full">
+              Preview Box
+            </span>
           </div>
         </div>
+
+        {/* Right Blue Strip with Measurement */}
+        <div className="flex flex-col items-center">
+          {/* Blue Strip - Increased height for desktop */}
+          <div className="w-6 h-[130px] sm:h-[200px] bg-[#4A89DC] rounded-md shadow-md" />
+          
+          {/* Animated Arrow - Larger for desktop */}
+          <div className="mt-2 sm:mt-4 flex flex-col items-center animate-pulse">
+            <div className="relative w-12 sm:w-24 h-6">
+              <div className="absolute top-1/2 left-0 w-full h-0.5 sm:h-1 bg-[#4A89DC]" />
+              <div className="absolute top-1/2 right-0 w-3 h-3 sm:w-4 sm:h-4 border-r-2 border-b-2 border-[#4A89DC] transform rotate-[-45deg] translate-y-[-50%]" />
+            </div>
+          </div>
+          <div className="text-sm sm:text-base font-semibold text-[#1A3A2F] mt-1 sm:mt-2">200 mm</div>
+        </div>
       </div>
 
-      {/* Disabled Model Dropdown */}
-      <select
-        value={kickplateData.model}
-        className="w-72 p-2 rounded bg-gray-100 border border-gray-300 mb-6 cursor-not-allowed text-black"
-      >
-        <option value="closed joint">closed joint</option>
-        <option value="grove joint" disabled>grove joint</option>
-      </select>
+      {/* Configuration Section */}
+      <div className="w-full max-w-md bg-white/90 p-6 rounded-xl shadow-sm border border-[#E0EDDC]">
+        {/* Model Selection */}
+       <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Joint Type
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {['closed joint', 'grove joint'].map((joint) => (
+                <button
+                  key={joint}
+                  onClick={() => joint === 'closed joint' && 
+                    setKickplateData({ ...kickplateData, model: joint })}
+                  disabled={joint !== 'closed joint'}
+                  className={`p-3 rounded-lg border-2 transition-all ${
+                    kickplateData.model === joint
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  } ${
+                    joint !== 'closed joint' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                  }`}
+                >
+                  <div className="text-left">
+                    <div className="font-medium text-gray-800 capitalize">
+                      {joint.replace(' joint', '')}
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {joint === 'closed joint' ? 'Standard' : 'Coming soon'}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
 
-      {/* Width Dropdown */}
-      <div className="flex gap-2 mb-4">
-        <select
-          value={kickplateData.width}
-          onChange={(e) =>
-            setKickplateData({
-              ...kickplateData,
-              width: e.target.value,
-              widthUnit: 'mm',
-            })
-          }
-          className="p-2 rounded bg-white border border-gray-300 text-black"
-        >
-          <option value="100" disabled>100 mm (Not Available)</option>
-          <option value="200">200 mm</option>
-          <option value="300" disabled>300 mm (Not Available)</option>
-        </select>
+        {/* Width Selection */}
+        <div className="mb-8">
+          <label className="block text-sm font-medium text-[#1A3A2F] mb-2">
+            Width Configuration
+          </label>
+          <div className="flex gap-3">
+            <select
+              value={kickplateData.width}
+              onChange={(e) => setKickplateData({...kickplateData, width: e.target.value})}
+              className="flex-1 p-3 rounded-lg bg-[#F5F9F4] border border-[#D4E3D0] text-[#1A3A2F]"
+            >
+              <option value="100" disabled>100 mm</option>
+              <option value="200">200 mm</option>
+              <option value="300" disabled>300 mm</option>
+            </select>
+            <div className="w-20 p-3 rounded-lg bg-[#EFF5EE] text-[#6B7F6B] text-center border border-[#D4E3D0]">
+              mm
+            </div>
+          </div>
+        </div>
 
-        <select
-          value="mm"
-          className="p-2 rounded bg-gray-100 border border-gray-300 text-gray-700"
-          disabled
+        {/* Next Button */}
+        <button
+          onClick={handleNext}
+          className="w-full py-3 px-6 bg-[#4A89DC] hover:bg-[#3A79CC] text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
         >
-          <option value="mm">mm</option>
-        </select>
+          Continue to Next Step
+        </button>
       </div>
-
-      {/* Next Button */}
-      <button
-        onClick={handleNext}
-        disabled={!isNextEnabled}
-        className={`px-6 py-2 text-white rounded shadow transition-colors duration-200 ${
-          isNextEnabled
-            ? 'bg-[#8b4513] hover:bg-[#7a3e00]'
-            : 'bg-gray-400 cursor-not-allowed'
-        }`}
-      >
-        Next
-      </button>
     </div>
   );
 };
