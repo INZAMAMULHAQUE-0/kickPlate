@@ -1,17 +1,18 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
-import { CheckCircleIcon, MinusCircleIcon, PlayCircleIcon } from '@heroicons/react/24/solid';
+import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const steps = [
-  { id: 'step1', path: '/order', label: 'Step 1: Model', shortLabel: '1' },
-  { id: 'step2', path: '/order/step2', label: 'Step 2: Cut Length', shortLabel: '2' },
-  { id: 'step3', path: '/order/step3', label: 'Step 3: Shed Length', shortLabel: '3' },
-  { id: 'step4', path: '/order/step4', label: 'Step 4: Final Sizes', shortLabel: '4' },
-  { id: 'step5', path: '/order/step5', label: 'Step 5: Preview', shortLabel: '5' },
-  { id: 'step6', path: '/order/step6', label: 'Step 6: Select Colour', shortLabel: '6' },
-  { id: 'step7', path: '/order/step7', label: 'Step 7: Billing Preview', shortLabel: '7' },
-  { id: 'step8', path: '/order/step8', label: 'Step 8: Delivery Details', shortLabel: '8' }
+  { id: 'step1', path: '/order', title: 'Model Selection', description: '' },
+  { id: 'step2', path: '/order/step2', title: 'Cut Length', description: 'Enter cut length details' },
+  { id: 'step3', path: '/order/step3', title: 'Shed Length', description: 'Specify shed/panel length' },
+  { id: 'step4', path: '/order/step4', title: 'Final Sizes', description: 'Confirm final size measurements' },
+  { id: 'step5', path: '/order/step5', title: 'Preview', description: 'Preview the panel setup' },
+  { id: 'step6', path: '/order/step6', title: 'Select Colour', description: 'Pick color and view rate' },
+  { id: 'step7', path: '/order/step7', title: 'Billing Preview', description: 'Review cost and breakdown' },
+  { id: 'step8', path: '/order/step8', title: 'Delivery Details', description: 'Enter address and instructions' },
 ];
 
 const StepLayout = ({ children }) => {
@@ -30,18 +31,18 @@ const StepLayout = ({ children }) => {
     (step.path !== '/order' && location.pathname.startsWith(step.path))
   );
 
-  const getIcon = (index, id) => {
-    if (index === currentIndex) {
-      return <PlayCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400 animate-pulse" />;
+  const progress = ((currentIndex) / (steps.length - 1)) * 100;
+
+  const handleNext = () => {
+    if (currentIndex < steps.length - 1) {
+      navigate(steps[currentIndex + 1].path);
     }
-    if (stepStatus[id]) {
-      return <CheckCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 drop-shadow" />;
-    }
-    return <MinusCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />;
   };
 
-  const canNavigate = (index, id) => {
-    return stepStatus[id] || index <= currentIndex;
+  const handlePrevious = () => {
+    if (currentIndex > 0) {
+      navigate(steps[currentIndex - 1].path);
+    }
   };
 
   const handleReset = () => {
@@ -70,112 +71,107 @@ const StepLayout = ({ children }) => {
     setAllSets([]);
     setSelectedColour(null);
 
-    localStorage.removeItem('kickplateData');
-    localStorage.removeItem('stepStatus');
-    localStorage.removeItem('allSets');
-    localStorage.removeItem('selectedColour');
-
+    localStorage.clear();
     navigate('/order');
   };
 
   return (
-    <div className="flex flex-col sm:flex-row min-h-screen bg-[#0f1e35] text-white">
-      {/* Mobile Horizontal Navbar */}
-      <div className="sm:hidden w-full overflow-x-auto bg-[#0f1e35]/90 backdrop-blur-md border-b border-[#2a3a5a] z-20">
-        <div className="flex">
-          {steps.map((step, index) => {
-            const isCurrent = index === currentIndex;
-            const isComplete = stepStatus[step.id];
-            const clickable = canNavigate(index, step.id);
+    <motion.div 
+      className="min-h-screen bg-background py-8 px-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="max-w-5xl mx-auto">
+        <motion.div className="mb-6 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">KickPlate Configuration</h1>
+          <p className="text-muted-foreground text-sm sm:text-base">
+            Step {currentIndex + 1} of {steps.length} - {steps[currentIndex]?.title || ''}
+          </p>
+        </motion.div>
 
-            return (
-              <div
-                key={step.id}
-                onClick={() => clickable && navigate(step.path)}
-                className={`flex-shrink-0 flex flex-col items-center p-3 relative
-                  ${
-                    isCurrent
-                      ? 'text-white bg-gradient-to-b from-blue-400/20 to-transparent border-b-2 border-blue-400'
-                      : isComplete
-                      ? 'text-green-300 hover:bg-[#1a2b4a]'
-                      : 'text-gray-400 hover:bg-[#1a2b4a]'
-                  }
-                  ${!clickable && 'cursor-not-allowed opacity-60'}
-                `}
-              >
-                <div className="relative">
-                  {getIcon(index, step.id)}
-                  {isCurrent && (
-                    <div className="absolute inset-0 rounded-full bg-blue-400/10 animate-pulse"></div>
-                  )}
-                </div>
-                <span className={`text-xs mt-1 ${isCurrent ? 'font-bold' : ''}`}>
-                  {step.shortLabel}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Desktop Sidebar */}
-      <aside className="hidden sm:block w-64 p-6 sticky top-0 h-screen bg-[#0f1e35]/90 backdrop-blur-md border-r border-[#2a3a5a] shadow-xl z-20">
-        <h2 className="text-xl font-bold text-white mb-6 tracking-wide">🧭 Steps</h2>
-
-        <ul className="space-y-3 mb-10">
-          {steps.map((step, index) => {
-            const isCurrent = index === currentIndex;
-            const isComplete = stepStatus[step.id];
-            const clickable = canNavigate(index, step.id);
-
-            return (
-              <li
-                key={step.id}
-                onClick={() => clickable && navigate(step.path)}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition cursor-pointer relative
-                  ${
-                    isCurrent
-                      ? 'text-white bg-gradient-to-r from-blue-400/20 to-blue-400/10 border-l-4 border-blue-400 shadow-lg shadow-blue-400/20'
-                      : isComplete
-                      ? 'text-green-300 hover:bg-[#1a2b4a]'
-                      : 'text-gray-400 hover:bg-[#1a2b4a]'
-                  }
-                  ${!clickable && 'cursor-not-allowed opacity-60'}
-                  overflow-hidden
-                `}
-              >
-                {isCurrent && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-400"></div>
-                )}
-                
-                {getIcon(index, step.id)}
-                <span className={`text-sm font-medium truncate relative z-10 ${
-                  isCurrent ? 'font-bold' : ''
-                }`}>
-                  {step.label}
-                </span>
-                
-                {isCurrent && (
-                  <div className="absolute inset-0 rounded-md bg-blue-400/10 animate-pulse"></div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        <button
-          onClick={handleReset}
-          className="w-full mt-auto bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg shadow transition"
+        {/* Modern style step progress bar */}
+        <motion.div 
+          className="mb-6 bg-white rounded-lg shadow p-4 hidden sm:block"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
         >
-          Reset All
-        </button>
-      </aside>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-semibold text-gray-800">Step {currentIndex + 1} of {steps.length}</span>
+            <span className="text-sm text-gray-500">{Math.round(progress)}% Complete</span>
+          </div>
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
+            <motion.div
+              className="h-full bg-blue-600"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.6 }}
+            />
+          </div>
+          <div className="flex justify-between text-center">
+            {steps.map((step, idx) => {
+              const isComplete = stepStatus[step.id];
+              const isActive = idx === currentIndex;
+              const canNavigate = isComplete || idx <= currentIndex;
+              return (
+                <div key={step.id} className="flex-1 cursor-pointer" onClick={() => canNavigate && navigate(step.path)}>
+                  <div className={`w-8 h-8 mx-auto rounded-full text-sm flex items-center justify-center font-semibold mb-2
+                    ${isActive ? 'bg-orange-500 text-white' : isComplete ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}
+                  `}>
+                    {isActive ? idx + 1 : isComplete ? <CheckCircle className="w-4 h-4" /> : idx + 1}
+                  </div>
+                  <div className="text-xs font-medium text-gray-900">{step.title}</div>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
 
-      {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-6 overflow-y-auto bg-[#0f1e35]/80 backdrop-blur-sm">
-        {children}
-      </main>
-    </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-[#1c1c2e] p-6 rounded-lg shadow"
+        >
+          <div className="hidden sm:block text-center text-xl font-semibold text-white mb-6">
+            {steps[currentIndex]?.title}
+          </div>
+          {children}
+        </motion.div>
+
+        <motion.div 
+          className="flex justify-between items-center mt-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          <button
+            onClick={handlePrevious}
+            disabled={currentIndex === 0}
+            className="flex items-center gap-2 px-4 py-2 border rounded text-white border-white disabled:opacity-50"
+          >
+            <ArrowLeft className="h-4 w-4" /> Previous
+          </button>
+
+          <div className="flex gap-4">
+            {currentIndex < steps.length - 1 && (
+              <button
+                onClick={handleNext}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Next <ArrowRight className="h-4 w-4" />
+              </button>
+            )}
+            <button
+              onClick={handleReset}
+              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            >
+              Reset
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 
