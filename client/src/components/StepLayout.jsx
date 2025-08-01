@@ -77,32 +77,102 @@ const StepLayout = ({ children }) => {
 
   return (
     <motion.div 
-      className="min-h-screen bg-background py-8 px-4"
+      className="min-h-screen bg-background py-4 sm:py-8 px-2 sm:px-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
       <div className="max-w-5xl mx-auto">
-        <motion.div className="mb-6 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">KickPlate Configuration</h1>
-          <p className="text-muted-foreground text-sm sm:text-base">
-            Step {currentIndex + 1} of {steps.length} - {steps[currentIndex]?.title || ''}
-          </p>
+        {/* Mobile progress bar */}
+        <motion.div 
+          className="mb-4 bg-gradient-to-br from-orange-100 via-white to-white rounded-lg shadow p-3 block sm:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-sm font-semibold text-gray-800">Step {currentIndex + 1} of {steps.length}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500">{Math.round(progress)}%</span>
+              <button
+                onClick={handleReset}
+                className="w-6 h-6 flex items-center justify-center rounded-full bg-orange-50 border border-orange-200 text-orange-500 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-300"
+                title="Reset"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-3">
+            <motion.div
+              className="h-full bg-orange-600"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.6 }}
+            />
+          </div>
+          
+          {/* Scrollable steps for mobile */}
+          <div className="relative">
+            <div 
+              className="flex overflow-x-auto gap-2 pb-2" 
+              style={{ 
+                scrollbarWidth: 'none', 
+                msOverflowStyle: 'none',
+                WebkitScrollbar: { display: 'none' }
+              }}
+            >
+              {steps.map((step, idx) => {
+                const isComplete = stepStatus[step.id];
+                const isActive = idx === currentIndex;
+                const canNavigate = isComplete || idx <= currentIndex;
+                return (
+                  <div 
+                    key={step.id} 
+                    className="flex-shrink-0 cursor-pointer flex flex-col items-center min-w-[60px]" 
+                    onClick={() => canNavigate && navigate(step.path)}
+                  >
+                    <div className={`w-6 h-6 rounded-full text-xs flex items-center justify-center font-semibold mb-1
+                      ${isActive ? 'bg-orange-500 text-white' : isComplete ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-600'}`}>
+                      {isActive ? idx + 1 : isComplete ? <CheckCircle className="w-3 h-3" /> : idx + 1}
+                    </div>
+                    <div className={`text-xs text-center leading-tight px-1 ${isActive ? 'text-orange-600 font-medium' : 'text-gray-600'}`}>
+                      {step.title.split(' ').map((word, i) => (
+                        <div key={i}>{word}</div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </motion.div>
 
-        {/* Modern style step progress bar */}
+        {/* Desktop step progress bar */}
         <motion.div 
-          className="mb-6 bg-white rounded-lg shadow p-4 hidden sm:block"
+          className="mb-6 bg-gradient-to-br from-orange-100 via-white to-white rounded-lg shadow p-4 hidden sm:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-semibold text-gray-800">Step {currentIndex + 1} of {steps.length}</span>
-            <span className="text-sm text-gray-500">{Math.round(progress)}% Complete</span>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-gray-500">{Math.round(progress)}% Complete</span>
+              <button
+                onClick={handleReset}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-orange-50 border border-orange-200 text-orange-500 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-300"
+                title="Reset"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </button>
+            </div>
           </div>
-          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
+          <div className="w-full h-2 bg-gray-900 rounded-full overflow-hidden mb-4">
             <motion.div
-              className="h-full bg-blue-600"
+              className="h-full bg-orange-600"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.6 }}
@@ -116,11 +186,10 @@ const StepLayout = ({ children }) => {
               return (
                 <div key={step.id} className="flex-1 cursor-pointer" onClick={() => canNavigate && navigate(step.path)}>
                   <div className={`w-8 h-8 mx-auto rounded-full text-sm flex items-center justify-center font-semibold mb-2
-                    ${isActive ? 'bg-orange-500 text-white' : isComplete ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}
-                  `}>
+                    ${isActive ? 'bg-orange-500 text-gray-900' : isComplete ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}`}>
                     {isActive ? idx + 1 : isComplete ? <CheckCircle className="w-4 h-4" /> : idx + 1}
                   </div>
-                  <div className="text-xs font-medium text-gray-900">{step.title}</div>
+                  <div className="text-xs font-medium text-gray-900 px-1">{step.title}</div>
                 </div>
               );
             })}
@@ -131,16 +200,13 @@ const StepLayout = ({ children }) => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="bg-[#1c1c2e] p-6 rounded-lg shadow"
+          className="bg-gradient-to-br from-orange-50 via-white to-white rounded-lg shadow"
         >
-          <div className="hidden sm:block text-center text-xl font-semibold text-white mb-6">
-            {steps[currentIndex]?.title}
-          </div>
           {children}
         </motion.div>
 
         <motion.div 
-          className="flex justify-between items-center mt-6"
+          className="flex justify-between items-center mt-4 sm:mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -148,25 +214,19 @@ const StepLayout = ({ children }) => {
           <button
             onClick={handlePrevious}
             disabled={currentIndex === 0}
-            className="flex items-center gap-2 px-4 py-2 border rounded text-white border-white disabled:opacity-50"
+            className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 border rounded text-white border-white disabled:opacity-50 text-sm sm:text-base"
           >
-            <ArrowLeft className="h-4 w-4" /> Previous
+            <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" /> 
+            <span className="hidden sm:inline">Previous</span>
+            <span className="sm:hidden">Back</span>
           </button>
 
-          <div className="flex gap-4">
-            {currentIndex < steps.length - 1 && (
-              <button
-                onClick={handleNext}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                Next <ArrowRight className="h-4 w-4" />
-              </button>
-            )}
+          <div className="flex items-center justify-end">
             <button
-              onClick={handleReset}
-              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              onClick={handleNext}
+              className="hidden"
             >
-              Reset
+              Next
             </button>
           </div>
         </motion.div>
