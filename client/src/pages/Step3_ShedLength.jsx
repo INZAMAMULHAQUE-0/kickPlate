@@ -71,11 +71,21 @@ const Step3_ShedLength = () => {
   const formatCutLengthDisplay = () => {
     const unit = kickplateData.cutLengthUnit || 'mm';
     if (!isValidCutLength) return 'Not Set';
+    let value;
     switch (unit) {
-      case 'cm': return `${(cutLengthMM / 10).toFixed(1)} ${unit}`;
-      case 'meter': return `${(cutLengthMM / 1000).toFixed(2)} ${unit}`;
-      default: return `${cutLengthMM} ${unit}`;
+      case 'cm':
+        value = (cutLengthMM / 10).toFixed(1);
+        break;
+      case 'meter':
+        value = (cutLengthMM / 1000).toFixed(2);
+        break;
+      default:
+        value = cutLengthMM.toString();
     }
+    // Remove trailing zeros and decimal if not needed
+    value = value.replace(/\.0+$|(?<=\.[0-9]*)0+$/g, '');
+    if (value.endsWith('.')) value = value.slice(0, -1);
+    return `${value} ${unit}`;
   };
 
   const shedWithUnit = inputValue ? `${inputValue} ${selectedUnit}` : "";
@@ -139,10 +149,11 @@ const Step3_ShedLength = () => {
                   {/* Panel with arrows */}
                   <div className="flex-1 flex items-center justify-center relative">
                     {/* Left cut length arrow */}
-                    <div className="absolute -left-2 top-1/2 -translate-y-1/2 flex items-center gap-1 sm:gap-2">
-                      <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold flex flex-col items-end">
-                       {/* <span>Cut Length:</span> */}
-                       <span>{formatCutLengthDisplay()}</span>
+                    <div className="absolute -left-2 sm:-left-0.25 top-1/2 -translate-y-1/2 flex items-center sm:gap-2">
+                      <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold flex flex-col items-start">
+                        {/* Display value and unit on separate lines */}
+                        <span>{formatCutLengthDisplay().split(' ')[0]}</span>
+                        <span>{formatCutLengthDisplay().split(' ')[1]}</span>
                       </div>
                       <motion.div
                         animate={{ x: [0, -4, 0] }}
@@ -162,7 +173,7 @@ const Step3_ShedLength = () => {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="relative w-[60%] h-[70%] mx-auto rounded overflow-hidden"
+                      className="relative w-[62%] h-[70%] mx-auto rounded overflow-hidden"
                     >
                       {/* Orange borders for cut length (top/bottom) */}
                       <div className="absolute top-0 left-0 right-0 h-[3px] bg-orange-400"></div>
@@ -182,7 +193,7 @@ const Step3_ShedLength = () => {
                     </motion.div>
 
                     {/* Bottom shed length arrow */}
-<div className="absolute -bottom-10 sm:-bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center w-[60%]">
+<div className="absolute -bottom-8 sm:-bottom-13 left-1/2 -translate-x-1/2 flex flex-col items-center w-[60%]">
   <motion.div
     animate={{ y: [0, 4, 0] }}
     transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
@@ -202,7 +213,7 @@ const Step3_ShedLength = () => {
   </motion.div>
   <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold mt-1 flex flex-col sm:flex-row sm:items-center">
     {/* <span>Pergola Length:</span> */}
-    <span className="mt-1 sm:mt-0 sm:ml-1">{shedWithUnit}</span>
+    <span className="mt-1 sm:mt-0 sm:ml-1 text-left w-full">{shedWithUnit}</span>
   </div>
 </div>
 

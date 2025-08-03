@@ -25,11 +25,21 @@ const Step2_CutLength = () => {
   const displayFormattedValue = () => {
     const mm = parseFloat(kickplateData.cutLength);
     if (isNaN(mm)) return "";
+    let value;
     switch (selectedUnit) {
-      case "cm": return (mm / 10).toFixed(1);
-      case "meter": return (mm / 1000).toFixed(2);
-      default: return mm.toString();
+      case "cm":
+        value = (mm / 10).toFixed(1);
+        break;
+      case "meter":
+        value = (mm / 1000).toFixed(2);
+        break;
+      default:
+        value = mm.toString();
     }
+    // Remove trailing zeros and decimal if not needed
+    value = value.replace(/\.0+$|(?<=\.[0-9]*)0+$/g, '');
+    if (value.endsWith('.')) value = value.slice(0, -1);
+    return value;
   };
 
   useEffect(() => {
@@ -119,8 +129,8 @@ const Step2_CutLength = () => {
                     {/* Panel */}
                     <div className="flex-1 flex items-center justify-center relative">
                       {/* Arrow + measurement for mobile */}
-                      <div className="absolute -left-3 sm:-left-8 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
-                        <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap flex flex-col items-end">
+                      <div className="absolute -left-6 sm:-left-8 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
+                        <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap flex flex-col items-start">
                           <span>{inputValue}</span>
                           <span>{selectedUnit}</span>
                         </div>

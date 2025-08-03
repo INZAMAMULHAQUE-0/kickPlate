@@ -153,10 +153,10 @@ const Step4_FinalSizes = () => {
                   {/* Panel with arrows */}
                   <div className="flex-1 flex items-center justify-center relative">
                     {/* Left cut length arrow */}
-                    <div className="absolute -left-2 sm:-left-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    <div className="absolute -left-6 sm:-left-4 top-1/2 -translate-y-1/2 flex items-center gap-1">
                       <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap">
                         <span className="hidden sm:inline">Cut Length:</span>
-                        <span className="sm:hidden">Cut :</span>
+                        <span className="sm:hidden underline pb-1">Cut Length:</span>
                         <br className="sm:hidden"/>
                         {formattedCutLength}
                       </div>
@@ -205,7 +205,7 @@ const Step4_FinalSizes = () => {
                       </motion.div>
 
                     {/* Bottom pergola length arrow */}
-                    <div className="absolute bottom-5 sm:-bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center w-[50%] sm:w-[44%]">
+                    <div className="absolute bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center w-[50%] sm:w-[44%]">
                       <motion.div
                         animate={{ y: [0, 4, 0] }}
                         transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
@@ -225,7 +225,7 @@ const Step4_FinalSizes = () => {
                       </motion.div>
                       <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap mt-1">
                         <span className="hidden sm:inline">Pergola Length: </span>
-                        <span className="sm:hidden">Pergola</span>
+                        <span className="sm:hidden underline">Pergola Length:<br /></span>
                         {formattedShedLength}
                       </div>
                     </div>
