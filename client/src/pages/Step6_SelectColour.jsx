@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useKickplate } from '../context/KickplateContext';
 import { useNavigate } from 'react-router-dom';
+import { ArrowRight } from "lucide-react";
 
 const Step6_SelectColour = () => {
   const navigate = useNavigate();
@@ -44,82 +46,145 @@ const Step6_SelectColour = () => {
   const completeSets = [...allSets, kickplateData];
 
   return (
-    <div className="min-h-screen bg-[#f5f5dc] px-6 pt-24 pb-10 text-[#5c4033]">
-      {/* Title */}
-      <h2 className="text-3xl font-bold text-purple-800 mb-10 text-center border-b pb-2">
-        SELECT COLOUR
-      </h2>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
+      {/* Header */}
+      <div className="w-full max-w-6xl text-center mb-1 sm:mb-10">
+        <div className="bg-orange-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-orange-200">
+          <span className="text-xs sm:text-sm text-black tracking-wide font-semibold">Step 6 of 8</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-black mb-1">Select Colour</h1>
+        <p className="text-black text-base sm:text-lg mt-2">Choose your preferred panel colour and specifications</p>
+      </div>
 
-      {/* Grid and Summary */}
-      <div className="flex flex-col lg:flex-row gap-10 items-start justify-center">
-        {/* Colour Options */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">
-          {colorsData.map((color, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleSelect(color)}
-              className={`cursor-pointer rounded-lg p-4 text-center shadow-md border transition relative focus:outline-none ${
-                color.available
-                  ? `${color.color} text-white hover:scale-105`
-                  : 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed'
-              } ${
-                selectedColour?.thickness === color.thickness ? 'ring-4 ring-yellow-400' : ''
-              }`}
-            >
-              {!color.available && (
-                <div className="absolute top-1 left-2 text-red-700 text-xs font-bold">NA</div>
-              )}
-              <div className="text-xl font-semibold">{color.thickness}</div>
-              <div className="text-sm mt-2">
-                {color.leadTime} - @ Dhs{color.price}/sm
-              </div>
-              <div className="text-xs mt-1">Trim: @Dhs{color.trimerate}/sm, Support: @Dhs{color.supportrate}/sm</div>
+      {/* Main Content Container */}
+      <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-8 items-start">
+        {/* Colour Options Section */}
+        <div className="w-full lg:w-2/3">
+          <div className="bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg p-6 mb-8">
+            <h3 className="text-lg font-semibold text-black mb-6">Available Colours & Specifications</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {colorsData.map((color, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={color.available ? { scale: 1.02 } : {}}
+                  whileTap={color.available ? { scale: 0.98 } : {}}
+                  onClick={() => handleSelect(color)}
+                  className={`cursor-pointer rounded-xl p-4 text-center shadow-md border-2 transition-all duration-300 relative focus:outline-none ${
+                    color.available
+                      ? `${color.color} text-white hover:shadow-lg border-transparent`
+                      : 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed'
+                  } ${
+                    selectedColour?.thickness === color.thickness ? 'ring-4 ring-orange-400 ring-offset-2' : ''
+                  }`}
+                >
+                  {!color.available && (
+                    <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                      N/A
+                    </div>
+                  )}
+                  <div className="text-xl font-bold mb-2">{color.thickness}</div>
+                  <div className="text-sm mb-1 opacity-90">
+                    {color.leadTime}
+                  </div>
+                  <div className="text-base font-semibold mb-2">
+                    AED {color.price}/sm
+                  </div>
+                  <div className="text-xs opacity-80 border-t border-white/30 pt-2">
+                    Trim: AED {color.trimerate}/pc • Support: AED {color.supportrate}/pc
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* Set Summary per panel set */}
-        <div className="w-full max-w-xs space-y-6">
-          {completeSets.map((set, index) => {
-            const { cutLengthPieces = 0, trimLengthPieces = 0, supportLengthPieces = 0 } = set;
-            const pricePerSM = selectedColour?.price || 0;
-            const trimerate = selectedColour?.trimerate || 0;
-            const supportrate = selectedColour?.supportrate || 0;
+        {/* Panel Sets Summary Section */}
+        <div className="w-full lg:w-1/3">
+          <div className="bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg p-6">
+            <h3 className="text-lg font-semibold text-black mb-6">Panel Sets Summary</h3>
+            <div className="space-y-4">
+              {completeSets.map((set, index) => {
+                const { cutLengthPieces = 0, trimLengthPieces = 0, supportLengthPieces = 0, cutLength, shedLength } = set;
 
+                return (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-orange-50/50 border border-orange-200 rounded-xl p-4"
+                  >
+                    <h4 className="text-orange-700 font-bold mb-3 flex items-center justify-between">
+                      <span>Panel Set {index + 1}</span>
+                      <span className="text-xs bg-orange-200 px-2 py-1 rounded-full">
+                        {cutLength}×{shedLength}mm
+                      </span>
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-700">Cut Length (200mm)</span>
+                        <span className="font-medium text-black">{cutLengthPieces} pcs</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-700">Trim (3m)</span>
+                        <span className="font-medium text-black">{trimLengthPieces} pcs</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-700">Support (3m)</span>
+                        <span className="font-medium text-black">{supportLengthPieces} pcs</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
-            return (
-              <div key={index} className="bg-white border border-purple-300 shadow-md rounded p-4 text-sm">
-                <h4 className="text-purple-700 font-bold mb-3">Panel Set {index + 1}</h4>
-                <div className="flex justify-between mb-2">
-                  <span>Cut Length (200 mm)</span>
-                  <span>{cutLengthPieces} pcs</span>
+            {/* Selected Colour Preview */}
+            {selectedColour && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-xl"
+              >
+                <h4 className="text-orange-700 font-bold mb-3">Selected Colour</h4>
+                <div
+                  className={`w-full h-16 ${selectedColour.color} text-white rounded-lg shadow-md flex items-center justify-center mb-3`}
+                >
+                  <span className="text-lg font-bold">{selectedColour.thickness}</span>
                 </div>
-                <div className="flex justify-between mb-2">
-                  <span>Trim (3 m)</span>
-                  <span>{trimLengthPieces} pcs</span>
+                <div className="text-sm text-gray-700">
+                  <div className="flex justify-between mb-1">
+                    <span>Lead Time:</span>
+                    <span className="font-medium">{selectedColour.leadTime}</span>
+                  </div>
+                  <div className="flex justify-between mb-1">
+                    <span>Price:</span>
+                    <span className="font-medium">AED {selectedColour.price}/sm</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Trim/Support:</span>
+                    <span className="font-medium">AED {selectedColour.trimerate}/{selectedColour.supportrate}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between mb-2">
-                  <span>Support (3 m)</span>
-                  <span>{supportLengthPieces} pcs</span>
-                </div>
-              </div>
-            );
-          })}
+              </motion.div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Continue Button */}
-      <div className="flex justify-center mt-12">
+      <div className="w-full max-w-6xl mt-8">
         <button
           onClick={handlePreview}
           disabled={!selectedColour}
-          className={`px-6 py-3 rounded shadow font-semibold transition ${
+          className={`w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-2 py-3 px-8 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-300 text-lg font-bold tracking-wide ${
             selectedColour
-              ? 'bg-purple-600 text-white hover:bg-purple-700'
-              : 'bg-gray-400 text-white cursor-not-allowed'
+              ? 'bg-orange-400 border-orange-400 text-white hover:bg-orange-500 hover:border-orange-500'
+              : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
-          Preview
+          Preview Order
+          <ArrowRight className="w-5 h-5" />
         </button>
       </div>
     </div>
