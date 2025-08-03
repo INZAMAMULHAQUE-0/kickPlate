@@ -61,9 +61,9 @@ const LandingPage = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-400 rounded-lg flex items-center justify-center font-bold text-white shadow-md">
-                K
+                KP
               </div>
-              <h1 className="text-gray-800 font-bold text-xl sm:text-2xl tracking-tight">KickPlate</h1>
+              <h1 className="text-gray-800 font-bold text-xl sm:text-2xl tracking-tight">Kick-Plate Pergola Ceiling</h1>
             </div>
           </div>
         </nav>
@@ -72,15 +72,12 @@ const LandingPage = () => {
         <main className="flex-1 w-full flex items-center justify-center px-6">
           <div className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-7xl w-full gap-8 lg:gap-16">
             {/* Left: Text & Buttons */}
-            <div className="max-w-xl text-center lg:text-left pt-8 lg:pt-0">
-              <span className="inline-block bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                Premium Quality
-              </span>
+            <div className="max-w-xl text-center lg:text-left pt-4 lg:pt-0">
               <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-800 mb-4 leading-tight tracking-tight">
-                <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">KickPlate</span> Solutions
+                <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Kick-Plate</span> Pergola Ceiling
               </h2>
               <h4 className="text-xl sm:text-2xl font-semibold text-gray-600 mb-4">
-                Custom Designs in Dubai
+                Dubai Factory TechnoMec
               </h4>
               <p className="hidden sm:block text-base sm:text-lg text-gray-500 mb-8 max-w-lg">
                 High-quality, custom-made kickplate solutions that perfectly match your specifications and requirements.

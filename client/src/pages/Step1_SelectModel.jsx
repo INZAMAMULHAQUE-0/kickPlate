@@ -9,7 +9,7 @@ const Step1_SelectModel = () => {
   useEffect(() => {
     setKickplateData({
       ...kickplateData,
-      model: 'closed joint',
+      model: 'Flush Butt Joint',
       width: '200',
       widthUnit: 'mm'
     });
@@ -104,7 +104,7 @@ const Step1_SelectModel = () => {
               onChange={(e) => setKickplateData({ ...kickplateData, model: e.target.value })}
               className="flex-1 p-3 rounded-lg bg-background border border-orange-100 text-gray-600 font-medium focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
             >
-              <option value="Flush butt joint">Flush butt joint (Standard) </option>
+              <option value="Flush butt joint">Flush Butt Joint (Standard) </option>
               <option value="closed joint" disabled>Closed Joint (coming soon)</option>
               <option value="grove joint" disabled>Grove Joint (Coming Soon)</option>
             </select>
