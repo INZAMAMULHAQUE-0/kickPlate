@@ -35,7 +35,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="h-screen w-full flex flex-col bg-white via-orange-50 to-orange-100 text-gray-800 relative overflow-hidden">
+  <div className="h-screen w-full flex flex-col text-gray-900 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, var(--color-bg) 0%, rgba(79,70,229,0.06) 100%)' }}>
         {/* Cursor-following color effect (desktop only) */}
         <div
           className="pointer-events-none fixed z-0 hidden md:block"
@@ -52,18 +52,18 @@ const LandingPage = () => {
           }}
         />
         {/* Design Elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500/10 to-orange-300/20 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-orange-400/10 to-orange-200/20 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
+  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-600/10 to-indigo-400/20 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
+  <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-indigo-500/10 to-indigo-300/20 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
 
         {/* Navbar */}
-        <nav className="relative z-20 px-6 py-5 bg-white/80 hover:bg-white/95 transition-all duration-300 shadow-none hover:shadow-md border-b border-orange-100">
+  <nav className="relative z-20 px-6 py-5 transition-all duration-300 shadow-none hover:shadow-md" style={{ background: 'color-mix(in srgb, var(--color-surface) 85%, transparent)', borderBottom: '1px solid var(--color-border)' }}>
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-400 rounded-lg flex items-center justify-center font-bold text-white shadow-md">
+              <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-lg flex items-center justify-center font-extrabold text-white shadow-md">
                 KP
               </div>
-              <h1 className="text-gray-800 font-bold text-xl sm:text-2xl tracking-tight">Kick-Plate Pergola Ceiling</h1>
+              <h1 className="text-gray-900 font-extrabold text-xl sm:text-2xl tracking-tight">Kick-Plate Pergola Ceiling</h1>
             </div>
           </div>
         </nav>
@@ -73,13 +73,13 @@ const LandingPage = () => {
           <div className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-7xl w-full gap-8 lg:gap-16">
             {/* Left: Text & Buttons */}
             <div className="max-w-xl text-center lg:text-left pt-4 lg:pt-0">
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-800 mb-4 leading-tight tracking-tight">
-                <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Kick-Plate</span> Pergola Ceiling
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-4 leading-tight tracking-tight">
+                <span className="bg-gradient-to-r from-indigo-600 to-indigo-700 bg-clip-text text-transparent">Kick-Plate</span> Pergola Ceiling
               </h2>
-              <h4 className="text-xl sm:text-2xl font-semibold text-gray-600 mb-4">
+              <h4 className="text-xl sm:text-2xl font-extrabold text-gray-700 mb-4">
                 Dubai Factory TechnoMec
               </h4>
-              <p className="hidden sm:block text-base sm:text-lg text-gray-500 mb-8 max-w-lg">
+              <p className="hidden sm:block text-base sm:text-lg text-gray-600 mb-8 max-w-lg">
                 High-quality, custom-made kickplate solutions that perfectly match your specifications and requirements.
               </p>
 
@@ -87,7 +87,7 @@ const LandingPage = () => {
               <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start justify-center lg:justify-start mb-8">
                 <button
                   onClick={() => navigate('/order')}
-                  className=" w-full flex items-center justify-center gap-2 bg-white text-orange-600 font-medium px-8 py-3.5 rounded-full shadow-sm border border-orange-200 transition-all duration-300 w-full sm:w-auto hover:bg-orange-500 hover:text-white hover:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-extrabold px-8 py-3.5 rounded-full shadow-sm border-2 border-indigo-600 transition-all duration-200 sm:w-auto hover:bg-indigo-700 hover:border-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -96,7 +96,7 @@ const LandingPage = () => {
                 </button>
                 <button
                   onClick={() => navigate('/login')}
-                  className=" w-full flex items-center justify-center gap-2 bg-white text-orange-600 font-medium px-8 py-3.5 rounded-full shadow-sm border border-orange-200 transition-all duration-300 w-full sm:w-auto hover:bg-orange-500 hover:text-white hover:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full flex items-center justify-center gap-2 bg-white text-indigo-700 font-extrabold px-8 py-3.5 rounded-full shadow-sm border-2 border-indigo-200 transition-all duration-200 sm:w-auto hover:bg-indigo-600 hover:text-white hover:border-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 >
                   <span>Login</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +116,7 @@ const LandingPage = () => {
 
             {/* Right: Video */}
             <div className="w-full max-w-xl lg:max-w-2xl rounded-2xl overflow-hidden shadow-xl bg-white relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-orange-300/20 mix-blend-overlay z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-indigo-400/20 mix-blend-overlay z-10"></div>
               <video
                 ref={videoRef}
                 autoPlay
@@ -133,14 +133,14 @@ const LandingPage = () => {
         </main>
 
         {/* Footer */}
-        <footer className="text-center text-sm py-4 text-gray-500 relative z-10">
+  <footer className="text-center text-sm py-4 text-gray-600 relative z-10 font-semibold">
           © {new Date().getFullYear()} KickPlate. All rights reserved.
         </footer>
 
         {/* WhatsApp Modal */}
         {showWhatsapp && (
           <div className="fixed inset-0 z-50 bg-gray-900/70 backdrop-blur-sm flex items-center justify-center px-4 animate-fadeIn">
-            <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full relative text-gray-800 animate-scaleIn">
+            <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full relative text-gray-900 animate-scaleIn">
               <button
                 onClick={() => setShowWhatsapp(false)}
                 className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors"
@@ -153,16 +153,16 @@ const LandingPage = () => {
                 <div className="bg-green-500/10 p-3 rounded-full mr-4">
                   <FaWhatsapp className="text-green-500 text-3xl" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800">Connect with Our Team</h3>
+                <h3 className="text-xl font-extrabold text-gray-900">Connect with Our Team</h3>
               </div>
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-700 mb-6">
                 Our support team is available on WhatsApp to answer all your questions about our kickplate solutions.
               </p>
               <a
                 href="https://wa.me/917369960439"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center bg-green-500 hover:bg-green-600 text-white py-3.5 rounded-xl font-semibold transition-all duration-300"
+                className="block w-full text-center bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-extrabold transition-all duration-200"
               >
                 Open WhatsApp Chat
               </a>

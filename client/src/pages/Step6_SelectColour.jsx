@@ -46,11 +46,11 @@ const Step6_SelectColour = () => {
   const completeSets = [...allSets, kickplateData];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
+  <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
       {/* Header */}
       <div className="w-full max-w-6xl text-center mb-1 sm:mb-10">
-        <div className="bg-orange-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-orange-200">
-          <span className="text-xs sm:text-sm text-black tracking-wide font-semibold">Step 6 of 8</span>
+        <div className="bg-indigo-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-indigo-200">
+          <span className="text-xs sm:text-sm text-black tracking-wide font-extrabold">Step 6 of 8</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-black mb-1">Select Colour</h1>
         <p className="text-black text-base sm:text-lg mt-2">Choose your preferred panel colour and specifications</p>
@@ -60,8 +60,8 @@ const Step6_SelectColour = () => {
       <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-8 items-start">
         {/* Colour Options Section */}
         <div className="w-full lg:w-2/3">
-          <div className="bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg p-6 mb-8">
-            <h3 className="text-lg font-semibold text-black mb-6">Available Colours & Specifications</h3>
+          <div className="bg-white/80 border-2 border-indigo-100 rounded-2xl shadow-lg p-6 mb-8">
+            <h3 className="text-lg font-extrabold text-black mb-6">Available Colours & Specifications</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {colorsData.map((color, idx) => (
                 <motion.div
@@ -74,7 +74,7 @@ const Step6_SelectColour = () => {
                       ? `${color.color} text-white hover:shadow-lg border-transparent`
                       : 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed'
                   } ${
-                    selectedColour?.thickness === color.thickness ? 'ring-4 ring-orange-400 ring-offset-2' : ''
+                    selectedColour?.thickness === color.thickness ? 'ring-4 ring-indigo-400 ring-offset-2' : ''
                   }`}
                 >
                   {!color.available && (
@@ -100,8 +100,8 @@ const Step6_SelectColour = () => {
 
         {/* Panel Sets Summary Section */}
         <div className="w-full lg:w-1/3">
-          <div className="bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-black mb-6">Panel Sets Summary</h3>
+          <div className="bg-white/80 border-2 border-indigo-100 rounded-2xl shadow-lg p-6">
+            <h3 className="text-lg font-extrabold text-black mb-6">Panel Sets Summary</h3>
             <div className="space-y-4">
               {completeSets.map((set, index) => {
                 const { cutLengthPieces = 0, trimLengthPieces = 0, supportLengthPieces = 0, cutLength, shedLength } = set;
@@ -112,11 +112,11 @@ const Step6_SelectColour = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-orange-50/50 border border-orange-200 rounded-xl p-4"
+                    className="bg-indigo-50/50 border border-indigo-200 rounded-xl p-4"
                   >
-                    <h4 className="text-orange-700 font-bold mb-3 flex items-center justify-between">
+                    <h4 className="text-indigo-700 font-extrabold mb-3 flex items-center justify-between">
                       <span>Panel Set {index + 1}</span>
-                      <span className="text-xs bg-orange-200 px-2 py-1 rounded-full">
+                      <span className="text-xs bg-indigo-200 px-2 py-1 rounded-full font-bold">
                         {cutLength}×{shedLength}mm
                       </span>
                     </h4>
@@ -144,26 +144,26 @@ const Step6_SelectColour = () => {
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-xl"
+                className="mt-6 p-4 bg-indigo-50 border border-indigo-200 rounded-xl"
               >
-                <h4 className="text-orange-700 font-bold mb-3">Selected Colour</h4>
+                <h4 className="text-indigo-700 font-extrabold mb-3">Selected Colour</h4>
                 <div
                   className={`w-full h-16 ${selectedColour.color} text-white rounded-lg shadow-md flex items-center justify-center mb-3`}
                 >
-                  <span className="text-lg font-bold">{selectedColour.thickness}</span>
+                  <span className="text-lg font-extrabold">{selectedColour.thickness}</span>
                 </div>
                 <div className="text-sm text-gray-700">
                   <div className="flex justify-between mb-1">
                     <span>Lead Time:</span>
-                    <span className="font-medium">{selectedColour.leadTime}</span>
+                    <span className="font-semibold">{selectedColour.leadTime}</span>
                   </div>
                   <div className="flex justify-between mb-1">
                     <span>Price:</span>
-                    <span className="font-medium">AED {selectedColour.price}/sm</span>
+                    <span className="font-semibold">AED {selectedColour.price}/sm</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Trim/Support:</span>
-                    <span className="font-medium">AED {selectedColour.trimerate}/{selectedColour.supportrate}</span>
+                    <span className="font-semibold">AED {selectedColour.trimerate}/{selectedColour.supportrate}</span>
                   </div>
                 </div>
               </motion.div>
@@ -177,9 +177,9 @@ const Step6_SelectColour = () => {
         <button
           onClick={handlePreview}
           disabled={!selectedColour}
-          className={`w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-2 py-3 px-8 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-300 text-lg font-bold tracking-wide ${
+          className={`w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-2 py-3 px-8 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide ${
             selectedColour
-              ? 'bg-orange-400 border-orange-400 text-white hover:bg-orange-500 hover:border-orange-500'
+              ? 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700'
               : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >

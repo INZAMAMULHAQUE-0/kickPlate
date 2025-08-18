@@ -105,18 +105,18 @@ const Step4_FinalSizes = () => {
   const hasValidDimensions = x > 0 && y > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
       {/* Header */}
       <div className="w-full max-w-3xl text-center mb-1 sm:mb-10">
-        <div className="bg-orange-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-orange-200">
-          <span className="text-xs sm:text-sm text-black tracking-wide font-semibold">Step 4 of 8</span>
+        <div className="bg-indigo-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-indigo-200">
+          <span className="text-xs sm:text-sm text-black tracking-wide font-extrabold">Step 4 of 8</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-black mb-1">Final Sizes</h1>
         <p className="text-black text-base sm:text-lg mt-2">Review panel dimensions and piece calculations</p>
       </div>
 
       {/* Preview Section */}
-      <div className="w-full max-w-3xl mb-8 bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg py-4 px-2 sm:px-8 ">
+  <div className="w-full max-w-3xl mb-8 bg-white/80 border-2 border-indigo-100 rounded-2xl shadow-lg py-4 px-2 sm:px-8 ">
         <div className="flex justify-center mb-8">
           <div className="w-full h-[280px] p-4 flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -145,7 +145,7 @@ const Step4_FinalSizes = () => {
                 >
                   {/* Preview label */}
                   <div className="text-center mb-4">
-                    <div className="inline-block bg-orange-50 px-4 py-1 rounded-full text-sm font-medium border border-orange-200">
+                    <div className="inline-block bg-indigo-50 px-4 py-1 rounded-full text-sm font-bold border border-indigo-200">
                       Final Panel Preview
                     </div>
                   </div>
@@ -167,9 +167,9 @@ const Step4_FinalSizes = () => {
                       >
                         {/* Animated vertical arrow */}
                         <svg width="12" height="80" viewBox="0 0 16 100" fill="none" className="sm:w-4 sm:h-[100px]">
-                          <path d="M8 0 L0 8 L16 8 Z" fill="#F97316" />
-                          <line x1="8" y1="8" x2="8" y2="92" stroke="#F97316" strokeWidth="2" />
-                          <path d="M8 100 L0 92 L16 92 Z" fill="#F97316" />
+                          <path d="M8 0 L0 8 L16 8 Z" fill="#4f46e5" />
+                          <line x1="8" y1="8" x2="8" y2="92" stroke="#4f46e5" strokeWidth="2" />
+                          <path d="M8 100 L0 92 L16 92 Z" fill="#4f46e5" />
                         </svg>
                       </motion.div>
                     </div>
@@ -180,12 +180,12 @@ const Step4_FinalSizes = () => {
                       animate={{ opacity: 1 }}
                       className="relative w-[55%] sm:w-[50%] h-[35%] sm:h-[55%] mx-auto rounded overflow-hidden"
                     >
-                      {/* Orange borders for cut length (top/bottom) */}
-                      <div className="absolute top-0 left-0 right-0 h-[2px] sm:h-[3px] bg-orange-400"></div>
-                      <div className="absolute bottom-0 left-0 right-0 h-[2px] sm:h-[3px] bg-orange-400"></div>
-                      {/* Gray borders for shed length (left/right) */}
-                      <div className="absolute top-0 bottom-0 left-0 w-[2px] sm:w-[3px] bg-orange-600"></div>
-                      <div className="absolute top-0 bottom-0 right-0 w-[2px] sm:w-[3px] bg-orange-600"></div>
+                      {/* Indigo borders for cut length (top/bottom) */}
+                      <div className="absolute top-0 left-0 right-0 h-[2px] sm:h-[3px] bg-indigo-600"></div>
+                      <div className="absolute bottom-0 left-0 right-0 h-[2px] sm:h-[3px] bg-indigo-600"></div>
+                      {/* Dark borders for shed length (left/right) */}
+                      <div className="absolute top-0 bottom-0 left-0 w-[2px] sm:w-[3px] bg-gray-800"></div>
+                      <div className="absolute top-0 bottom-0 right-0 w-[2px] sm:w-[3px] bg-gray-800"></div>
                       {/* Grid background */}
                       <div
                         className="w-full h-full bg-white"
@@ -194,7 +194,7 @@ const Step4_FinalSizes = () => {
                             const numLines = Math.max(1, localValues.zLines || zLines);
                             const positions = Array.from({ length: numLines }, (_, i) => {
                               const position = (100 / (numLines * 2)) * (1 + i * 2);
-                              return `rgba(255, 166, 77, 0.6) ${position}%, transparent ${position}%`;
+                              return `rgba(99, 102, 241, 0.6) ${position}%, transparent ${position}%`;
                             });
                             return `linear-gradient(0deg, transparent 0, ${positions.join(', ')})`;
                           })(),
@@ -218,9 +218,9 @@ const Step4_FinalSizes = () => {
                           className="w-full h-2 sm:h-3"
                           preserveAspectRatio="none"
                         >
-                          <path d="M0 8 L8 0 L8 16 Z" fill="#ff8904" />
-                          <line x1="8" y1="8" x2="92" y2="8" stroke="#ff8904" strokeWidth="2" />
-                          <path d="M100 8 L92 0 L92 16 Z" fill="#ff8904" />
+                          <path d="M0 8 L8 0 L8 16 Z" fill="#4f46e5" />
+                          <line x1="8" y1="8" x2="92" y2="8" stroke="#4f46e5" strokeWidth="2" />
+                          <path d="M100 8 L92 0 L92 16 Z" fill="#4f46e5" />
                         </svg>
                       </motion.div>
                       <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap mt-1">
@@ -239,13 +239,13 @@ const Step4_FinalSizes = () => {
       </div>
 
       {/* Inputs Section */}
-      <div style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}} className="w-full max-w-3xl mx-auto border-2 border-orange-100 rounded-2xl shadow-lg p-6 mb-8">
+      <div style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}} className="w-full max-w-3xl mx-auto border-2 border-indigo-100 rounded-2xl shadow-lg p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-black">Calculated Pieces</h3>
+          <h3 className="text-lg font-extrabold text-black">Calculated Pieces</h3>
           {isEditable && (
             <div className="flex items-center">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-orange-100 text-orange-600 border border-orange-200">
-                <span className="w-2 h-2 bg-orange-400 rounded-full mr-2 animate-pulse"></span>
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-indigo-100 text-indigo-700 border border-indigo-200 font-bold">
+                <span className="w-2 h-2 bg-indigo-500 rounded-full mr-2 animate-pulse"></span>
                 Editing Mode
               </span>
             </div>
@@ -262,7 +262,7 @@ const Step4_FinalSizes = () => {
                 value={localValues.cutLengthPieces}
                 onChange={handleChange}
                 disabled={!isEditable}
-                className="border border-orange-100 rounded-lg px-4 py-2 w-24 text-right bg-white/80 disabled:bg-gray-50 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 font-medium"
+                className="border border-indigo-200 rounded-lg px-4 py-2 w-24 text-right bg-white/80 disabled:bg-gray-50 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 font-semibold"
               />
               <span className="text-sm text-black font-medium w-12">pieces</span>
             </div>
@@ -278,7 +278,7 @@ const Step4_FinalSizes = () => {
                 value={localValues.trimLengthPieces}
                 onChange={handleChange}
                 disabled={!isEditable}
-                className="border border-orange-100 rounded-lg px-4 py-2 w-24 text-right bg-white/80 disabled:bg-gray-50 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 font-medium"
+                className="border border-indigo-200 rounded-lg px-4 py-2 w-24 text-right bg-white/80 disabled:bg-gray-50 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 font-semibold"
               />
               <span className="text-sm text-black font-medium w-12">pieces</span>
             </div>
@@ -295,7 +295,7 @@ const Step4_FinalSizes = () => {
                 value={localValues.zLines}
                 onChange={handleChange}
                 disabled={!isEditable}
-                className="border border-orange-100 rounded-lg px-4 py-2 w-24 text-right bg-white/80 disabled:bg-gray-50 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 font-medium"
+                className="border border-indigo-200 rounded-lg px-4 py-2 w-24 text-right bg-white/80 disabled:bg-gray-50 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 font-semibold"
               />
               <span className="text-sm text-black font-medium w-12">Piece</span>
             </div>
@@ -329,19 +329,19 @@ const Step4_FinalSizes = () => {
         <div className="flex gap-4 mt-6">
           <button
             onClick={handleEditToggle}
-            className={`flex-1 py-3 px-6 rounded-xl border-2 font-bold shadow-md hover:shadow-lg transition-all duration-300 text-lg tracking-wide ${
+            className={`flex-1 py-3 px-6 rounded-xl border-2 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide ${
               isEditable 
-                ? "bg-orange-400 border-orange-400 text-white hover:bg-orange-500 hover:border-orange-500" 
-                : "bg-white border-gray-300 text-gray-700 hover:border-orange-400"
+                ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700" 
+                : "bg-white border-gray-300 text-gray-800 hover:border-indigo-400"
             }`}
           >
             {isEditable ? 'Lock Value' : 'Edit'}
           </button>
           <button
             onClick={handlePreview}
-            className={`flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-300 text-lg font-bold tracking-wide ${
+            className={`flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide ${
               hasValidDimensions
-                ? "bg-white/80 border-orange-100 text-black hover:bg-orange-500 hover:text-white hover:border-orange-500"
+                ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
                 : "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
             }`}
             disabled={!hasValidDimensions}

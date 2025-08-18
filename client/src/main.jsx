@@ -7,7 +7,7 @@ import {KickplateProvider} from './context/KickplateContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
-      <KickplateProvider> 
+      <KickplateProvider>
         <App />
       </KickplateProvider>
     </BrowserRouter>

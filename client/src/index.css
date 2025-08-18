@@ -1,2 +1,54 @@
 @import "tailwindcss";
 
+/* Theme tokens via CSS variables */
+:root {
+	--color-primary: #4f46e5; /* indigo-600 */
+	--color-primary-hover: #4338ca; /* indigo-700 */
+	--color-text: #111827; /* gray-900 */
+	--color-bg: #ffffff;
+	--color-surface: #ffffff;
+	--color-border: #e0e7ff; /* indigo-100 */
+}
+
+/* Global tone: make labels and buttons bolder and improve default contrast */
+html, body {
+	color: var(--color-text);
+	background: var(--color-bg);
+}
+h1, h2, h3, h4 {
+	font-weight: 800; /* extrabold */
+	letter-spacing: -0.02em;
+	color: var(--color-text);
+}
+label {
+	font-weight: 700;
+	color: var(--color-text);
+}
+button {
+	font-weight: 800;
+	letter-spacing: 0.02em;
+}
+
+/* Reusable component styles for a bold primary button and surface cards */
+.btn-primary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	border-radius: 0.75rem; /* rounded-xl */
+	background: var(--color-primary);
+	color: #ffffff;
+	border: 2px solid var(--color-primary);
+	transition: background-color 200ms, border-color 200ms;
+}
+.btn-primary:hover {
+	background: var(--color-primary-hover);
+	border-color: var(--color-primary-hover);
+}
+.card-surface {
+	background: var(--color-surface);
+	border: 2px solid var(--color-border);
+	border-radius: 1rem; /* rounded-2xl */
+	box-shadow: 0 10px 15px -3px rgba(0,0,0,0.25), 0 4px 6px -4px rgba(0,0,0,0.2);
+}
+

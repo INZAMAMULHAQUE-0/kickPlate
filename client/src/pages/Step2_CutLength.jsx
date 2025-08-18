@@ -81,18 +81,18 @@ const Step2_CutLength = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
+  <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
       {/* Header */}
       <div className="w-full max-w-3xl text-center mb-10">
-        <div className="bg-orange-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-orange-200">
-          <span className="text-xs sm:text-sm text-black tracking-wide font-semibold">Step 2 of 8</span>
+        <div className="bg-indigo-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-indigo-200">
+          <span className="text-xs sm:text-sm text-black tracking-wide font-extrabold">Step 2 of 8</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-black mb-1">Cut Length</h1>
         <p className="text-black text-base sm:text-lg mt-2">Enter the cut length for your kickplate</p>
       </div>
 
       {/* Preview Section */}
-      <div className="w-full max-w-3xl mb-6 sm:mb-8 bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg py-4 sm:py-8 px-3 sm:px-6">
+  <div className="w-full max-w-3xl mb-6 sm:mb-8 bg-white/80 border-2 border-indigo-100 rounded-2xl shadow-lg py-4 sm:py-8 px-3 sm:px-6">
           <div className="flex justify-center mb-4 sm:mb-8">
             <div className="w-full h-[200px] sm:h-[280px] p-2 sm:p-4 flex items-center justify-center">
               <AnimatePresence mode="wait">
@@ -121,7 +121,7 @@ const Step2_CutLength = () => {
                   >
                     {/* Preview label */}
                     <div className="text-center mb-1">
-                      <div className="inline-block bg-orange-50 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-medium border border-orange-200">
+                      <div className="inline-block bg-indigo-50 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm font-bold border border-indigo-200">
                         Cut Length Preview
                       </div>
                     </div>
@@ -161,26 +161,26 @@ const Step2_CutLength = () => {
                         className="relative w-[65%] sm:w-[70%] h-[50%] sm:h-[60%] mx-auto rounded overflow-hidden"
                       >
                         {/* Grey length borders */}
-                        <div className="absolute top-0 left-0 right-0 h-[1px] sm:h-[2px] bg-black"></div>
-                        <div className="absolute bottom-0 left-0 right-0 h-[1px] sm:h-[2px] bg-black"></div>
+                        <div className="absolute top-0 left-0 right-0 h-[1px] sm:h-[2px] bg-gray-900"></div>
+                        <div className="absolute bottom-0 left-0 right-0 h-[1px] sm:h-[2px] bg-gray-900"></div>
                         {/* Orange width borders */}
-                        <div className="absolute top-0 bottom-0 left-0 w-[1px] sm:w-[2px] bg-orange-400"></div>
-                        <div className="absolute top-0 bottom-0 right-0 w-[1px] sm:w-[2px] bg-orange-400"></div>
+                        <div className="absolute top-0 bottom-0 left-0 w-[1px] sm:w-[2px] bg-indigo-600"></div>
+                        <div className="absolute top-0 bottom-0 right-0 w-[1px] sm:w-[2px] bg-indigo-600"></div>
                         {/* Grid background */}
                         <div
-                          className="w-full h-full bg-orange-50/50 hidden sm:block"
+              className="w-full h-full bg-indigo-50/50 hidden sm:block"
                           style={{
                             backgroundImage:
-                              'linear-gradient(0deg, rgba(255,166,77,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,166,77,0.15) 1px, transparent 1px)',
+                'linear-gradient(0deg, rgba(99,102,241,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.15) 1px, transparent 1px)',
                             backgroundSize: '15px 15px'
                           }}
                         ></div>
                         {/* Mobile Grid background (smaller grid) */}
                         <div
-                          className="w-full h-full bg-orange-50/50 block sm:hidden"
+              className="w-full h-full bg-indigo-50/50 block sm:hidden"
                           style={{
                             backgroundImage:
-                              'linear-gradient(0deg, rgba(255,166,77,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,166,77,0.15) 1px, transparent 1px)',
+                'linear-gradient(0deg, rgba(99,102,241,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.15) 1px, transparent 1px)',
                             backgroundSize: '8px 8px'
                           }}
                         ></div>
@@ -193,7 +193,7 @@ const Step2_CutLength = () => {
         </div>
       </div>
           {/* Input */}
-          <div style={{backgroundColor: 'rgb(255,255,255)'}} className="w-full max-w-3xl mx-auto border-2 border-orange-100 rounded-2xl shadow-lg p-6">
+          <div style={{backgroundColor: 'rgb(255,255,255)'}} className="w-full max-w-3xl mx-auto border-2 border-indigo-100 rounded-2xl shadow-lg p-6">
             <label className="block text-base font-semibold text-black mb-3">
               Cut Length
             </label>
@@ -204,12 +204,12 @@ const Step2_CutLength = () => {
                 placeholder="Enter length"
                 value={inputValue}
                 onChange={(e) => handleLengthChange(e.target.value)}
-                className="w-full sm:flex-1 p-3 rounded-lg bg-white/80 border border-orange-100 text-black font-medium focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+                className="w-full sm:flex-1 p-3 rounded-lg bg-white/80 border border-indigo-200 text-black font-semibold focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
               />
               <select
                 value={selectedUnit}
                 onChange={(e) => handleUnitChange(e.target.value)}
-                className="w-full sm:w-28 p-3 rounded-lg bg-white/80 border border-orange-100 text-black font-medium focus:ring-2 focus:ring-orange-400 focus:border-orange-400"
+                className="w-full sm:w-28 p-3 rounded-lg bg-white/80 border border-indigo-200 text-black font-semibold focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400"
               >
                 <option value="mm">mm</option>
                 <option value="cm">cm</option>
@@ -219,9 +219,9 @@ const Step2_CutLength = () => {
       <button
         onClick={handleNext}
         disabled={!isValidHeight}
-        className={`w-full mt-6 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-300 text-lg font-bold tracking-wide flex items-center justify-center gap-2 ${
+        className={`w-full mt-6 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide flex items-center justify-center gap-2 ${
           isValidHeight
-            ? "bg-white/80 border-orange-100 text-black hover:bg-orange-500 hover:text-white hover:border-orange-500"
+            ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
             : "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
         }`}
       >

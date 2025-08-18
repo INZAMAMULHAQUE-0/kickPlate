@@ -43,18 +43,18 @@ const PreviewPage = () => {
   const hasValidDimensions = x > 0 && y > 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
+  <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-white flex flex-col items-center px-4 sm:px-6 py-10">
       {/* Header */}
       <div className="w-full max-w-3xl text-center mb-1 sm:mb-10">
-        <div className="bg-orange-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-orange-200">
-          <span className="text-xs sm:text-sm text-black tracking-wide font-semibold">Step 5 of 8</span>
+        <div className="bg-indigo-100/60 inline-block px-6 py-2 rounded-full mb-4 shadow border border-indigo-200">
+          <span className="text-xs sm:text-sm text-black tracking-wide font-extrabold">Step 5 of 8</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-black mb-1">Final Preview</h1>
         <p className="text-black text-base sm:text-lg mt-2">Review your panel configuration before proceeding</p>
       </div>
 
       {/* Preview Section */}
-      <div className="w-full max-w-3xl mb-8 bg-white/80 border-2 border-orange-100 rounded-2xl shadow-lg py-4 px-2 sm:px-8">
+  <div className="w-full max-w-3xl mb-8 bg-white/80 border-2 border-indigo-100 rounded-2xl shadow-lg py-4 px-2 sm:px-8">
         <div className="flex justify-center mb-8">
           <div className="w-full h-[280px] p-4 flex items-center justify-center">
             <AnimatePresence mode="wait">
@@ -83,7 +83,7 @@ const PreviewPage = () => {
                 >
                   {/* Preview label */}
                   <div className="text-center mb-4">
-                    <div className="inline-block bg-orange-50 px-4 py-1 rounded-full text-sm font-medium border border-orange-200">
+                    <div className="inline-block bg-indigo-50 px-4 py-1 rounded-full text-sm font-bold border border-indigo-200">
                       Final Panel Configuration
                     </div>
                   </div>
@@ -105,9 +105,9 @@ const PreviewPage = () => {
                       >
                         {/* Animated vertical arrow */}
                         <svg width="12" height="80" viewBox="0 0 16 100" fill="none" className="sm:w-4 sm:h-[100px]">
-                          <path d="M8 0 L0 8 L16 8 Z" fill="#F97316" />
-                          <line x1="8" y1="8" x2="8" y2="92" stroke="#F97316" strokeWidth="2" />
-                          <path d="M8 100 L0 92 L16 92 Z" fill="#F97316" />
+                          <path d="M8 0 L0 8 L16 8 Z" fill="#4f46e5" />
+                          <line x1="8" y1="8" x2="8" y2="92" stroke="#4f46e5" strokeWidth="2" />
+                          <path d="M8 100 L0 92 L16 92 Z" fill="#4f46e5" />
                         </svg>
                       </motion.div>
                     </div>
@@ -119,11 +119,11 @@ const PreviewPage = () => {
                       className="relative w-[55%] sm:w-[50%] h-[35%] sm:h-[55%] mx-auto rounded overflow-hidden"
                     >
                       {/* Orange borders for cut length (top/bottom) */}
-                      <div className="absolute top-0 left-0 right-0 h-[2px] sm:h-[3px] bg-orange-400"></div>
-                      <div className="absolute bottom-0 left-0 right-0 h-[2px] sm:h-[3px] bg-orange-400"></div>
+                      <div className="absolute top-0 left-0 right-0 h-[2px] sm:h-[3px] bg-indigo-600"></div>
+                      <div className="absolute bottom-0 left-0 right-0 h-[2px] sm:h-[3px] bg-indigo-600"></div>
                       {/* Gray borders for shed length (left/right) */}
-                      <div className="absolute top-0 bottom-0 left-0 w-[2px] sm:w-[3px] bg-orange-600"></div>
-                      <div className="absolute top-0 bottom-0 right-0 w-[2px] sm:w-[3px] bg-orange-600"></div>
+                      <div className="absolute top-0 bottom-0 left-0 w-[2px] sm:w-[3px] bg-gray-800"></div>
+                      <div className="absolute top-0 bottom-0 right-0 w-[2px] sm:w-[3px] bg-gray-800"></div>
                       {/* Grid background with Z lines */}
                       <div
                         className="w-full h-full bg-white"
@@ -132,7 +132,7 @@ const PreviewPage = () => {
                             const numLines = Math.max(1, zLines || 1);
                             const positions = Array.from({ length: numLines }, (_, i) => {
                               const position = (100 / (numLines * 2)) * (1 + i * 2);
-                              return `rgba(255, 166, 77, 0.6) ${position}%, transparent ${position}%`;
+                              return `rgba(99, 102, 241, 0.6) ${position}%, transparent ${position}%`;
                             });
                             return `linear-gradient(0deg, transparent 0, ${positions.join(', ')})`;
                           })(),
@@ -156,9 +156,9 @@ const PreviewPage = () => {
                           className="w-full h-2 sm:h-3"
                           preserveAspectRatio="none"
                         >
-                          <path d="M0 8 L8 0 L8 16 Z" fill="#ff8904" />
-                          <line x1="8" y1="8" x2="92" y2="8" stroke="#ff8904" strokeWidth="2" />
-                          <path d="M100 8 L92 0 L92 16 Z" fill="#ff8904" />
+                          <path d="M0 8 L8 0 L8 16 Z" fill="#4f46e5" />
+                          <line x1="8" y1="8" x2="92" y2="8" stroke="#4f46e5" strokeWidth="2" />
+                          <path d="M100 8 L92 0 L92 16 Z" fill="#4f46e5" />
                         </svg>
                       </motion.div>
                       <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap mt-1">
@@ -176,7 +176,7 @@ const PreviewPage = () => {
       </div>
 
       {/* Cut, Trim, Support Fields */}
-      <div className="w-full max-w-3xl mx-auto border-2 border-orange-100 rounded-2xl shadow-lg p-6 mb-8" style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
+  <div className="w-full max-w-3xl mx-auto border-2 border-indigo-100 rounded-2xl shadow-lg p-6 mb-8" style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
         <h3 className="text-lg font-semibold text-black mb-4">Material Requirements</h3>
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
@@ -186,7 +186,7 @@ const PreviewPage = () => {
                 type="number"
                 value={cutLengthPieces}
                 disabled
-                className="border border-orange-100 rounded-lg px-4 py-2 w-24 text-right bg-gray-50 text-gray-700 cursor-not-allowed font-medium"
+        className="border border-indigo-200 rounded-lg px-4 py-2 w-24 text-right bg-gray-50 text-gray-800 cursor-not-allowed font-semibold"
               />
               <span className="text-sm text-black font-medium w-12">pieces</span>
             </div>
@@ -198,7 +198,7 @@ const PreviewPage = () => {
                 type="number"
                 value={trimLengthPieces}
                 disabled
-                className="border border-orange-100 rounded-lg px-4 py-2 w-24 text-right bg-gray-50 text-gray-700 cursor-not-allowed font-medium"
+        className="border border-indigo-200 rounded-lg px-4 py-2 w-24 text-right bg-gray-50 text-gray-800 cursor-not-allowed font-semibold"
               />
               <span className="text-sm text-black font-medium w-12">pieces</span>
             </div>
@@ -210,7 +210,7 @@ const PreviewPage = () => {
                 type="number"
                 value={supportLengthPieces}
                 disabled
-                className="border border-orange-100 rounded-lg px-4 py-2 w-24 text-right bg-gray-50 text-gray-700 cursor-not-allowed font-medium"
+        className="border border-indigo-200 rounded-lg px-4 py-2 w-24 text-right bg-gray-50 text-gray-800 cursor-not-allowed font-semibold"
               />
               <span className="text-sm text-black font-medium w-12">pieces</span>
             </div>
@@ -225,7 +225,7 @@ const PreviewPage = () => {
             addNewSet();
             navigate('/order/step2')
           }}
-          className="flex items-center justify-center gap-2 flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-300 text-lg font-bold tracking-wide bg-white border-orange-100 text-black hover:bg-orange-500 hover:text-white hover:border-orange-500"
+          className="flex items-center justify-center gap-2 flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-white border-indigo-100 text-gray-900 hover:bg-indigo-600 hover:text-white hover:border-indigo-600"
         >
           <ArrowLeft className="w-5 h-5" />
           Add More Sizes
@@ -235,7 +235,7 @@ const PreviewPage = () => {
             setStepStatus(prev => ({ ...prev, step5: true }));
             navigate('/order/step6');
           }}
-          className="flex items-center justify-center gap-2 flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-300 text-lg font-bold tracking-wide bg-orange-400 border-orange-400 text-white hover:bg-orange-500 hover:border-orange-500"
+          className="flex items-center justify-center gap-2 flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
         >
           Next: Choose Colour
           <ArrowRight className="w-5 h-5" />
