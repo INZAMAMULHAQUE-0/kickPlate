@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useKickplate } from '../context/KickplateContext';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Calculator, FileText } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calculator, FileText } from "lucide-react";
 
 const Step7_Preview_bill = () => {
   const { kickplateData, allSets, selectedColour, stepStatus, setStepStatus } = useKickplate();
@@ -222,17 +222,22 @@ const Step7_Preview_bill = () => {
           </div>
         </div>
 
-        {/* Continue Button */}
-    <div className="flex justify-end">
+        {/* Navigation Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => navigate('/order/step6')}
+            className="w-full sm:flex-1 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" /> Previous
+          </button>
           <button
             onClick={() => {
               setStepStatus(prev => ({ ...prev, step7: true }));
               navigate('/order/step9');
             }}
-      className="flex items-center justify-center gap-2 py-3 px-8 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
+            className="w-full sm:flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700 flex items-center justify-center gap-2"
           >
-            Choose Delivery
-            <ArrowRight className="w-5 h-5" />
+            Choose Delivery <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useKickplate } from '../context/KickplateContext';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Step6_SelectColour = () => {
   const navigate = useNavigate();
@@ -40,6 +40,10 @@ const Step6_SelectColour = () => {
       setStepStatus(prev => ({ ...prev, step6: true }));
       navigate('/order/step7');
     }
+  };
+
+  const handlePrevious = () => {
+    navigate('/order/step5');
   };
 
   // All sets = [...allSets, currentSet]
@@ -172,20 +176,27 @@ const Step6_SelectColour = () => {
         </div>
       </div>
 
-      {/* Continue Button */}
+      {/* Navigation Buttons */}
       <div className="w-full max-w-6xl mt-8">
-        <button
-          onClick={handlePreview}
-          disabled={!selectedColour}
-          className={`w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-2 py-3 px-8 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide ${
-            selectedColour
-              ? 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700'
-              : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-          }`}
-        >
-          Preview Order
-          <ArrowRight className="w-5 h-5" />
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={handlePrevious}
+            className="w-full sm:flex-1 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" /> Previous
+          </button>
+          <button
+            onClick={handlePreview}
+            disabled={!selectedColour}
+            className={`w-full sm:flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide flex items-center justify-center gap-2 ${
+              selectedColour
+                ? 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700'
+                : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            Preview Order <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </div>
   );

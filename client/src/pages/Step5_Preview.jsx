@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Plus } from "lucide-react";
 
 const PreviewPage = () => {
   const { kickplateData, addNewSet, stepStatus, setStepStatus } = useKickplate();
@@ -219,27 +219,35 @@ const PreviewPage = () => {
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full max-w-3xl">
-        <button
-          onClick={() => {
-            addNewSet();
-            navigate('/order/step2')
-          }}
-          className="flex items-center justify-center gap-2 flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-white border-indigo-100 text-gray-900 hover:bg-indigo-600 hover:text-white hover:border-indigo-600"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Add More Sizes
-        </button>
-        <button
-          onClick={() => {
-            setStepStatus(prev => ({ ...prev, step5: true }));
-            navigate('/order/step6');
-          }}
-          className="flex items-center justify-center gap-2 flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
-        >
-          Next: Choose Colour
-          <ArrowRight className="w-5 h-5" />
-        </button>
+      <div className="flex flex-col sm:flex-row gap-3 mt-8 w-full max-w-3xl">
+        <div className="flex flex-col sm:flex-row gap-3 w-full">
+          <button
+            onClick={() => navigate('/order/step4')}
+            className="w-full sm:w-1/3 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" /> Previous
+          </button>
+          <button
+            onClick={() => {
+              addNewSet();
+              navigate('/order/step2')
+            }}
+            className="w-full sm:w-1/3 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-white border-indigo-100 text-gray-900 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 flex items-center justify-center gap-2"
+          >
+            <Plus className="w-5 h-5" />
+            Add More Sizes
+          </button>
+          <button
+            onClick={() => {
+              setStepStatus(prev => ({ ...prev, step5: true }));
+              navigate('/order/step6');
+            }}
+            className="w-full sm:w-1/3 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700 flex items-center justify-center gap-2"
+          >
+            Next: Choose Colour
+            <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </div>
   );

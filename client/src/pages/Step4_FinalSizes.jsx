@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Step4_FinalSizes = () => {
   const { kickplateData, setKickplateData, stepStatus, setStepStatus } = useKickplate();
@@ -87,6 +88,10 @@ const Step4_FinalSizes = () => {
   const handlePreview = () => {
     setStepStatus(prev => ({ ...prev, step4: true }));
     navigate('/order/step5');
+  };
+
+  const handlePrevious = () => {
+    navigate('/order/step3');
   };
 
   const formatValue = (value, unit) => {
@@ -326,28 +331,36 @@ const Step4_FinalSizes = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 mt-6">
-          <button
-            onClick={handleEditToggle}
-            className={`flex-1 py-3 px-6 rounded-xl border-2 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide ${
-              isEditable 
-                ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700" 
-                : "bg-white border-gray-300 text-gray-800 hover:border-indigo-400"
-            }`}
-          >
-            {isEditable ? 'Lock Value' : 'Edit'}
-          </button>
-          <button
-            onClick={handlePreview}
-            className={`flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide ${
-              hasValidDimensions
-                ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
-                : "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-            disabled={!hasValidDimensions}
-          >
-            Preview
-          </button>
+        <div className="flex flex-col sm:flex-row gap-3 mt-6">
+          <div className="flex flex-col sm:flex-row gap-3 w-full">
+            <button
+              onClick={handlePrevious}
+              className="w-full sm:w-1/3 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
+            >
+              <ArrowLeft className="w-5 h-5" /> Previous
+            </button>
+            <button
+              onClick={handleEditToggle}
+              className={`w-full sm:w-1/3 py-3 px-6 rounded-xl border-2 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide flex items-center justify-center gap-2 ${
+                isEditable 
+                  ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700" 
+                  : "bg-white border-gray-300 text-gray-800 hover:border-indigo-400"
+              }`}
+            >
+              {isEditable ? 'Lock Value' : 'Edit'}
+            </button>
+            <button
+              onClick={handlePreview}
+              className={`w-full sm:w-1/3 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide flex items-center justify-center gap-2 ${
+                hasValidDimensions
+                  ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
+                  : "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
+              }`}
+              disabled={!hasValidDimensions}
+            >
+              Next <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKickplate } from '../context/KickplateContext';
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Step1_SelectModel = () => {
   const navigate = useNavigate();
@@ -18,6 +19,10 @@ const Step1_SelectModel = () => {
   const handleNext = () => {
     setStepStatus({ ...stepStatus, step1: true });
     navigate('/order/step2');
+  };
+
+  const handlePrevious = () => {
+    navigate('/');
   };
 
   return (
@@ -95,7 +100,7 @@ const Step1_SelectModel = () => {
   <div className="w-full max-w-3xl bg-white/90 p-8 rounded-2xl shadow-lg border border-indigo-100">
         {/* Model Selection */}
         <div className="mb-7">
-          <label className="block text-base font-semibold text-black mb-3">
+          <label className="block text-xl font-extrabold text-blue-900 mb-3 text-center underline decoration-2 underline-offset-4">
             Model Selection
           </label>
           <div className="flex gap-4 items-center">
@@ -113,7 +118,7 @@ const Step1_SelectModel = () => {
 
         {/* Width Selection */}
         <div className="mb-8">
-          <label className="block text-base font-semibold text-black mb-3">
+          <label className="block text-xl font-extrabold text-blue-900 mb-3 text-center underline decoration-2 underline-offset-4">
             Width Configuration
           </label>
           <div className="flex gap-4 items-center">
@@ -138,13 +143,21 @@ const Step1_SelectModel = () => {
           </div>
         </div>
 
-        {/* Next Button */}
-        <button
-          onClick={handleNext}
-          className="w-full py-3 px-6 bg-indigo-600 text-white border-2 border-indigo-600 hover:bg-indigo-700 font-extrabold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide"
-        >
-          Continue to Next Step
-        </button>
+        {/* Navigation Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={handlePrevious}
+            className="w-full sm:flex-1 py-3 px-6 bg-white text-gray-800 border-2 border-gray-300 hover:border-indigo-400 font-extrabold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" /> Previous
+          </button>
+          <button
+            onClick={handleNext}
+            className="w-full sm:flex-1 py-3 px-6 bg-indigo-600 text-white border-2 border-indigo-600 hover:bg-indigo-700 font-extrabold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide flex items-center justify-center gap-2"
+          >
+            Next <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
     </div>
   );

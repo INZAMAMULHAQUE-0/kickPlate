@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useKickplate } from "../context/KickplateContext";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const Step2_CutLength = () => {
   const navigate = useNavigate();
@@ -78,6 +78,10 @@ const Step2_CutLength = () => {
     if (!isValidHeight) return;
     setStepStatus({ ...stepStatus, step2: true });
     navigate("/order/step3");
+  };
+
+  const handlePrevious = () => {
+    navigate("/order");
   };
 
   return (
@@ -216,17 +220,25 @@ const Step2_CutLength = () => {
                 <option value="meter">meter</option>
               </select>
             </div>
-      <button
-        onClick={handleNext}
-        disabled={!isValidHeight}
-        className={`w-full mt-6 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide flex items-center justify-center gap-2 ${
-          isValidHeight
-            ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
-            : "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-        }`}
-      >
-        Next <ArrowRight className="w-5 h-5" />
-      </button>
+      <div className="flex flex-col sm:flex-row gap-3 mt-6">
+        <button
+          onClick={handlePrevious}
+          className="w-full sm:flex-1 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
+        >
+          <ArrowLeft className="w-5 h-5" /> Previous
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={!isValidHeight}
+          className={`w-full sm:flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide flex items-center justify-center gap-2 ${
+            isValidHeight
+              ? "bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 hover:border-indigo-700"
+              : "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
+          }`}
+        >
+          Next <ArrowRight className="w-5 h-5" />
+        </button>
+      </div>
           </div>
 
 

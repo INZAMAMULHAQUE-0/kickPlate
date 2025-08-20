@@ -253,6 +253,12 @@ const Step3_ShedLength = () => {
         {/* Navigation Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
           <button
+            onClick={handlePrevious}
+            className="w-full sm:flex-1 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-5 h-5" /> Previous
+          </button>
+          <button
             onClick={handleNext}
             disabled={!showPreview}
             className={`w-full sm:flex-1 py-3 px-6 rounded-xl border-2 shadow-md hover:shadow-lg transition-all duration-200 text-lg font-extrabold tracking-wide flex items-center justify-center gap-2 ${
@@ -262,12 +268,6 @@ const Step3_ShedLength = () => {
             }`}
           >
             Next <ArrowRight className="w-5 h-5" />
-          </button>
-          <button
-            onClick={handlePrevious}
-            className="w-full sm:flex-1 py-3 px-6 rounded-xl border-2 border-gray-300 bg-white text-gray-800 font-extrabold shadow-md hover:shadow-lg transition-all duration-200 text-lg tracking-wide hover:border-indigo-400 flex items-center justify-center gap-2"
-          >
-            <ArrowLeft className="w-5 h-5" /> Previous
           </button>
         </div>
       </div>
