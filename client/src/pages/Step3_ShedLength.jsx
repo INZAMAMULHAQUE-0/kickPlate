@@ -206,12 +206,12 @@ const Step3_ShedLength = () => {
       className="w-full h-3 sm:h-4"
       preserveAspectRatio="none"
     >
-      <path d="M0 8 L8 0 L8 16 Z" fill="#ff8904" />
-      <line x1="8" y1="8" x2="92" y2="8" stroke="#ff8904" strokeWidth="2" />
-      <path d="M100 8 L92 0 L92 16 Z" fill="#ff8904" />
+      <path d="M0 8 L8 0 L8 16 Z" fill="#4F46E5" />
+      <line x1="8" y1="8" x2="92" y2="8" stroke="#4F46E5" strokeWidth="2" />
+      <path d="M100 8 L92 0 L92 16 Z" fill="#4F46E5" />
     </svg>
   </motion.div>
-  <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold mt-1 flex flex-col sm:flex-row sm:items-center">
+  <div className="text-xs sm:text-sm font-medium text-indigo-600 font-bold mt-1 flex flex-col sm:flex-row sm:items-center">
     {/* <span>Pergola Length:</span> */}
     <span className="mt-1 sm:mt-0 sm:ml-1 text-left w-full">{shedWithUnit}</span>
   </div>

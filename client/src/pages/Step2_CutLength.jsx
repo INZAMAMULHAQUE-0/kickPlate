@@ -134,7 +134,7 @@ const Step2_CutLength = () => {
                     <div className="flex-1 flex items-center justify-center relative">
                       {/* Arrow + measurement for mobile */}
                       <div className="absolute -left-6 sm:-left-8 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
-                        <div className="text-xs sm:text-sm font-medium text-orange-700 font-bold whitespace-nowrap flex flex-col items-start">
+                        <div className="text-xs sm:text-sm font-medium text-indigo-600 font-bold whitespace-nowrap flex flex-col items-start">
                           <span>{inputValue}</span>
                           <span>{selectedUnit}</span>
                         </div>
@@ -151,9 +151,9 @@ const Step2_CutLength = () => {
                             fill="none"
                             className="sm:w-[16px] sm:h-[100px]"
                           >
-                            <path d="M8 0 L0 8 L16 8 Z" fill="#F97316" />
-                            <line x1="8" y1="8" x2="8" y2="92" stroke="#F97316" strokeWidth="2" />
-                            <path d="M8 100 L0 92 L16 92 Z" fill="#F97316" />
+                            <path d="M8 0 L0 8 L16 8 Z" fill="#4F46E5" />
+                            <line x1="8" y1="8" x2="8" y2="92" stroke="#4F46E5" strokeWidth="2" />
+                            <path d="M8 100 L0 92 L16 92 Z" fill="#4F46E5" />
                           </svg>
                         </motion.div>
                       </div>
